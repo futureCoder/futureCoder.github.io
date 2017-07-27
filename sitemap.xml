@@ -8,12 +8,12 @@
   </url>
   
   <url>
-    <loc>http://jasondong.net/archive/</loc>
+    <loc>http://jasondong.net/archives/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://jasondong.net/category/</loc>
+    <loc>http://jasondong.net/categorys/</loc>
     <priority>0</priority>
   </url>
   
@@ -30,7 +30,7 @@
   </url>
   
   <url>
-    <loc>http://jasondong.net/tag/</loc>
+    <loc>http://jasondong.net/tags/</loc>
     <priority>0</priority>
   </url>
   
