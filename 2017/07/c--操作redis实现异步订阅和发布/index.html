@@ -1,0 +1,1542 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.25.1">
+    <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
+    <title>C&#43;&#43;操作Redis实现异步订阅和发布</title>
+    <meta name="author" content="董子雄">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="http://jasondong.net/favicon.png">
+    
+
+    
+    <meta name="description" content="安装redis，hiredis库 一、实验简介 在学习本课程之前，可以先看看我们的 Redis 基础教程,先了解一下 Redis 的 基本用法，试着操作 redis。 Redis（Remote Dictionary Server） 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。 Redis 通常被称为数据结构服务器，因为值（value）可以是 字符串( String ), 哈希( Map ), 列表( list ), 集合( sets ) 和 有序集合( sorted sets )等类型。 它的性能极高，读写速度很快，有很丰富的数据类型，同时还支持对几个操作合并后的原子性执行， 还支持 publish / subscribe , 通知 key 过期等等特性。
+1.1 知识点  介绍 Redis 的基础知识 安装使用 Redis 安装 hiredis 库，并编写测试程序  1.2 效果截图 二、Redis 安装和运行 安装 Redis 可以选择源码安装，或者使用 apt-get 安装。 在环境里安装 Redis 可以使用以下命令：">
+    <meta property="og:description" content="安装redis，hiredis库 一、实验简介 在学习本课程之前，可以先看看我们的 Redis 基础教程,先了解一下 Redis 的 基本用法，试着操作 redis。 Redis（Remote Dictionary Server） 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。 Redis 通常被称为数据结构服务器，因为值（value）可以是 字符串( String ), 哈希( Map ), 列表( list ), 集合( sets ) 和 有序集合( sorted sets )等类型。 它的性能极高，读写速度很快，有很丰富的数据类型，同时还支持对几个操作合并后的原子性执行， 还支持 publish / subscribe , 通知 key 过期等等特性。
+1.1 知识点  介绍 Redis 的基础知识 安装使用 Redis 安装 hiredis 库，并编写测试程序  1.2 效果截图 二、Redis 安装和运行 安装 Redis 可以选择源码安装，或者使用 apt-get 安装。 在环境里安装 Redis 可以使用以下命令：">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="C&#43;&#43;操作Redis实现异步订阅和发布">
+    <meta property="og:url" content="/2017/07/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83/">
+    <meta property="og:site_name" content="JasonDong&#39;s BLOG">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JasonDong&#39;s BLOG">
+    <meta name="twitter:description" content="安装redis，hiredis库 一、实验简介 在学习本课程之前，可以先看看我们的 Redis 基础教程,先了解一下 Redis 的 基本用法，试着操作 redis。 Redis（Remote Dictionary Server） 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。 Redis 通常被称为数据结构服务器，因为值（value）可以是 字符串( String ), 哈希( Map ), 列表( list ), 集合( sets ) 和 有序集合( sorted sets )等类型。 它的性能极高，读写速度很快，有很丰富的数据类型，同时还支持对几个操作合并后的原子性执行， 还支持 publish / subscribe , 通知 key 过期等等特性。
+1.1 知识点  介绍 Redis 的基础知识 安装使用 Redis 安装 hiredis 库，并编写测试程序  1.2 效果截图 二、Redis 安装和运行 安装 Redis 可以选择源码安装，或者使用 apt-get 安装。 在环境里安装 Redis 可以使用以下命令：">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/0acc4f80229fc6909e781ef03d7ca489?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" />
+    
+    
+    <link rel="stylesheet" href="http://jasondong.net/css/style-u6mk0ojoywresbx8iepslrmmhl4stuhrsxuwhkpwrkrx7mryjcaimasnk4pi.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="http://jasondong.net/">JasonDong&#39;s BLOG</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="http://jasondong.net/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/0acc4f80229fc6909e781ef03d7ca489?s=90" alt="作者的图片" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="http://jasondong.net/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/0acc4f80229fc6909e781ef03d7ca489?s=110" alt="作者的图片" />
+        </a>
+        <h4 class="sidebar-profile-name">董子雄</h4>
+        
+          <h5 class="sidebar-profile-bio"><strong>尘世迷途小码农</strong></h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">分类</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">标签</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">归档</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">关于</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">首页</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/futureCoder" target="_blank">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      C&#43;&#43;操作Redis实现异步订阅和发布
+    </h1>
+  
+  <div class="postShorten-meta post-meta">
+  
+    <time itemprop="datePublished" datetime="2017-07-26T22:48:42&#43;08:00">
+      
+  
+  
+  
+  
+    26 七月 2017 
+  
+
+    </time>
+  
+  
+
+</div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+<h1 id="安装redis-hiredis库">安装redis，hiredis库</h1>
+
+<h2 id="一-实验简介">一、实验简介</h2>
+
+<p>在学习本课程之前，可以先看看我们的 <a href="https://www.shiyanlou.com/courses/106"> Redis 基础教程</a>,先了解一下 Redis 的
+基本用法，试着操作 redis。
+Redis（Remote Dictionary Server） 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。
+Redis 通常被称为数据结构服务器，因为值（value）可以是 字符串( String ), 哈希( Map ), 列表( list ), 集合( sets ) 和 有序集合( sorted sets )等类型。
+它的性能极高，读写速度很快，有很丰富的数据类型，同时还支持对几个操作合并后的原子性执行，
+还支持 publish / subscribe , 通知 key 过期等等特性。</p>
+
+<h3 id="1-1-知识点">1.1 知识点</h3>
+
+<ul>
+<li>介绍 Redis 的基础知识</li>
+<li>安装使用 Redis</li>
+<li>安装 hiredis 库，并编写测试程序</li>
+</ul>
+
+<h3 id="1-2-效果截图">1.2 效果截图</h3>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2135timestamp1474357807858.png/wm" alt="此处输入图片的描述" /></p>
+
+<h2 id="二-redis-安装和运行">二、Redis 安装和运行</h2>
+
+<p>安装 Redis 可以选择源码安装，或者使用 apt-get 安装。
+在环境里安装 Redis 可以使用以下命令：</p>
+
+<pre><code>sudo apt-get update
+sudo apt-get install redis-server
+</code></pre>
+
+<p>启动 Redis</p>
+
+<pre><code>redis-server    
+</code></pre>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2135timestamp1474358245924.png/wm" alt="此处输入图片的描述" /></p>
+
+<p>查看 Redis 是否启动</p>
+
+<pre><code>redis-cli   #重新开一个 shell
+redis 127.0.0.1:6379&gt; ping #在客户端里输入ping，检测 Redis 是否装好
+</code></pre>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2135timestamp1474357817599.png/wm" alt="此处输入图片的描述" /></p>
+
+<h2 id="三-安装运用-hiredis-库">三、安装运用 hiredis 库</h2>
+
+<p>hiredis 是官方发布的 c/c++ Redis Client Library,源码在 github 上可以找到。
+先来了解 hiredis 库的安装。</p>
+
+<h3 id="3-1-安装-hiredis-库">3.1 安装 hiredis 库</h3>
+
+<p>运行下面的命令就可以安装好了：</p>
+
+<pre><code>wget http://labfile.oss.aliyuncs.com/courses/664/hiredis-master.zip
+unzip hiredis-master.zip
+cd hiredis-master  
+make  
+sudo make install
+sudo ldconfig /usr/local/lib  #ldconfig是一个动态链接库管理命令 将生成的库复制到 /usr/local/lib 目录下
+</code></pre>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2135timestamp1474357824370.png/wm" alt="此处输入图片的描述" /></p>
+
+<h3 id="3-2-同步相关的api">3.2 同步相关的API</h3>
+
+<p>介绍同步的 API 有几个函数很重要：</p>
+
+<ul>
+<li>redisContext * redisConnect(const char * ip, int port);</li>
+<li>void * redisCommand(redisContext * c, const char * format, &hellip;);</li>
+<li>void freeReplyObject(void * reply);</li>
+</ul>
+
+<h4 id="3-2-1-连接相关的函数">3.2.1 连接相关的函数</h4>
+
+<p>这个 <code>redisConnect</code> 函数是用来创建 <code>redisContext</code> 对象的，context 需要 Hiredis 保持连接状态。当连接出现问题时
+<code>redisContext</code> 结构有一个 <code>err</code> 非0整数来标记错误，<code>errstr</code> 将描述错误信息。
+Error section 包含了更多错误信息。因此在尝试用 <code>redisConnect</code> 连接服务器的时候，应该在 err 数据段
+看看连接是否成功。需要了解的是，<code>redisContext</code> 不是线程安全的。</p>
+
+<p>使用范例：</p>
+
+<pre><code>redisContext *c = redisConnect(&quot;127.0.0.1&quot;, 6379);
+if (c == NULL || c-&gt;err) {
+    if (c) {
+        printf(&quot;Error: %s\n&quot;, c-&gt;errstr);
+        // handle error
+    } else {
+        printf(&quot;Can't allocate redis context\n&quot;);
+    }
+}
+</code></pre>
+
+<h4 id="3-2-2-发送相关的命令">3.2.2 发送相关的命令</h4>
+
+<p>有几种方法可以发送命令给 Redis 服务器，<code>redisCommand</code> 这个函数很像 <code>printf</code>：</p>
+
+<pre><code>reply = redisCommand(context, &quot;SET foo bar&quot;);
+</code></pre>
+
+<p>占位符 %s 指代一个 string ，可以使用 strlen 来获取 string 的长度</p>
+
+<pre><code>reply = redisCommand(context, &quot;SET foo %s&quot;, value);
+</code></pre>
+
+<p>占位符 %b 是指代二进制的命令，除了需要指向 string 的指针外，还需要一个 size_t 的数据来指出 string 的长度</p>
+
+<pre><code>reply = redisCommand(context, &quot;SET foo %b&quot;, value, (size_t) valuelen);
+</code></pre>
+
+<p>除了上面的方式外，还有更灵活的方式来操作 Redis:</p>
+
+<pre><code>reply = redisCommand(context, &quot;SET key:%s %s&quot;, myid, value);
+</code></pre>
+
+<h4 id="3-2-3-清理">3.2.3 清理</h4>
+
+<p>断开连接并且释放 context 可以使用下面的函数：</p>
+
+<pre><code>void redisFree(redisContext *c);
+</code></pre>
+
+<h4 id="3-2-4-常见的错误">3.2.4 常见的错误</h4>
+
+<p><code>REDIS_ERR_IO</code>:当读或写连接的时候，出现了 I/O 错误。如果你在程序里包含了 errno.h 头文件，可以使用全局变量 errno
+来找出哪里出错了。</p>
+
+<p><code>REDIS_ERR_EOF</code>:当断开与服务器连接的时候，读取就是空的。</p>
+
+<p><code>REDIS_ERR_PROTOCOL</code>:解析协议的时候出现了错误。</p>
+
+<p><code>REDIS_ERR_OTHER</code>: 其他的错误，这时可以通过 errstr 来获取错误的信息</p>
+
+<h3 id="3-3-异步相关的api">3.3 异步相关的API</h3>
+
+<p>Hiredis 通过其他的 event 库很容易实现异步 API，下面的例程都是用<a href="http://software.schmorp.de/pkg/libev.html">libev</a> 和<a href="http://monkey.org/~provos/libevent/">libevent</a>。</p>
+
+<h4 id="3-3-1-连接相关的函数">3.3.1 连接相关的函数</h4>
+
+<p><code>redisAsyncConnect</code> 可以用来创建非阻塞的连接 Redis ，它的返回值是一个指针  <code>redisAsyncContext</code>  结构体。 <code>err</code>  变量用于检验连接服务端后是否出现了问题。因为创建的连接是非阻塞的，kernel 无法立即返回这个连接是否成功。<code>\*redisAsyncContext</code>    也不是线程安全的。</p>
+
+<pre><code>redisAsyncContext *c = redisAsyncConnect(&quot;127.0.0.1&quot;, 6379);
+if (c-&gt;err) {
+    printf(&quot;Error: %s\n&quot;, c-&gt;errstr);
+    // handle error
+}
+</code></pre>
+
+<p>异步的 <code>context</code> 有一个 用于断开断开的回调函数 ，用于在断开连接获取相关的信息，它的原型如下：</p>
+
+<pre><code>void(const redisAsyncContext *c, int status);
+</code></pre>
+
+<h4 id="3-3-2-发送命令和它们的回调">3.3.2 发送命令和它们的回调</h4>
+
+<p>不同于同步 API，异步的模式下发送命令只有一种方式，由于它是异步的，所以在发送命令后需要一个回调函数来检验命令是否发送成功。 Reply 回调函数的原型如下：</p>
+
+<pre><code>void(redisAsyncContext *c, void *reply, void *privdata);
+</code></pre>
+
+<p>下面的函数用来在异步的方式下发送命令：</p>
+
+<pre><code>int redisAsyncCommand(
+  redisAsyncContext *ac, redisCallbackFn *fn, void *privdata,
+  const char *format, ...);
+int redisAsyncCommandArgv(
+  redisAsyncContext *ac, redisCallbackFn *fn, void *privdata,
+  int argc, const char **argv, const size_t *argvlen);
+</code></pre>
+
+<h4 id="3-3-3-断开连接">3.3.3 断开连接</h4>
+
+<p>异步的连接将通过如下的方式断开：</p>
+
+<pre><code>void redisAsyncDisconnect(redisAsyncContext *ac);
+</code></pre>
+
+<p>当调用这个函数的时候，连接不会立刻终结，并且新的命令也不会接收。连接将会在之前所有的命令都写到 socket 后，并且返回相应的回复后才会终止。这时 disconnection  回调函数会返回 <code>REDIS_OK</code>  ， 并且将对象释放掉。</p>
+
+<h3 id="3-4-编写测试代码">3.4 编写测试代码</h3>
+
+<pre><code>vim test.cpp
+</code></pre>
+
+<pre><code>#include &lt;hiredis/hiredis.h&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+int main(int argc, char **argv)
+{
+    struct timeval timeout = {2, 0};    //2s的超时时间
+
+    redisContext *pRedisContext = (redisContext*)redisConnectWithTimeout(&quot;127.0.0.1&quot;, 6379, timeout);   //redisContext是Redis操作对象
+    if ( (NULL == pRedisContext) || (pRedisContext-&gt;err) )
+    {
+        if (pRedisContext)
+        {
+            std::cout &lt;&lt; &quot;connect error:&quot; &lt;&lt; pRedisContext-&gt;errstr &lt;&lt; std::endl;
+        }
+        else
+        {
+            std::cout &lt;&lt; &quot;connect error: can't allocate redis context.&quot; &lt;&lt; std::endl;
+        }
+        return -1;
+    }
+    //redisReply是Redis命令回复对象 redis返回的信息保存在redisReply对象中
+    redisReply *pRedisReply = (redisReply*)redisCommand(pRedisContext, &quot;INFO&quot;);  //执行INFO 命令，可以看到 redis 的一些详细情况
+    std::cout &lt;&lt; pRedisReply-&gt;str &lt;&lt; std::endl;
+    //当多条Redis命令使用同一个redisReply对象时
+    //每一次执行完Redis命令后需要清空redisReply 以免对下一次的Redis操作造成影响
+    freeReplyObject(pRedisReply);   
+
+    return 0;
+}
+</code></pre>
+
+<p>运行：</p>
+
+<pre><code>sudo redis-server   # 单独开一个 shell 执行命令
+g++ test.cpp -o test -lhiredis
+./test              
+</code></pre>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2135timestamp1474357843053.png/wm" alt="此处输入图片的描述" /></p>
+
+<h2 id="四-实验总结">四、实验总结</h2>
+
+<p>本节课学习了 redis 的安装和运用，并使用 hiredis 库编写了一个测试程序，执行 INFO 命令，获取 redis 服务器相关的信息。redis 有很丰富的功能，除了nosql 特性之外，有很好的容灾能力。RDB 持久化可以在指定的时间间隔内生成数据集的时间点快照（point-in-time snapshot），AOF 持久化记录服务器执行的所有写操作命令。下节课将编写实现一个 异步的订阅和发布程序。</p>
+
+<h2 id="五-参考资料">五、参考资料</h2>
+
+<p><a href="http://hahaya.github.io/operator-redis-under-linux/">Linux下C++操作Redis</a></p>
+
+<p><a href="https://github.com/redis/hiredis#synchronous-api">redis/hiredis</a></p>
+
+<h1 id="异步实现订阅和发布">异步实现订阅和发布</h1>
+
+<h2 id="一-实验简介-1">一、实验简介</h2>
+
+<p>本节实验将实现消息的订阅和发布</p>
+
+<h3 id="1-1-知识点-1">1.1 知识点</h3>
+
+<ul>
+<li>发布订阅模式者模式介绍</li>
+<li>编写发布者相关模块</li>
+<li>编写订阅者相关模块</li>
+<li>编写 makefile</li>
+</ul>
+
+<h3 id="1-2-效果截图-1">1.2 效果截图</h3>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2136timestamp1474454566716.png/wm" alt="此处输入图片的描述" /></p>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2136timestamp1474454573848.png/wm" alt="此处输入图片的描述" /></p>
+
+<h2 id="二-介绍发布订阅模式">二、介绍发布订阅模式</h2>
+
+<p>订阅，取消订阅和发布实现了发布/订阅消息范式(引自wikipedia)，发送者（发布者）不是计划发送消息给特定的接收者（订阅者）。而是发布的消息分到不同的频道，不需要知道什么样的订阅者订阅。</p>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2136timestamp1474454591074.png/wm" alt="此处输入图片的描述" /></p>
+
+<p>订阅者对一个或多个频道感兴趣，只需接收感兴趣的消息，不需要知道什么样的发布者发布的。</p>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2136timestamp1474454585210.png/wm" alt="此处输入图片的描述" /></p>
+
+<p>这种发布者和订阅者的解耦合可以带来更大的扩展性和更加动态的网络拓扑。</p>
+
+<h2 id="二-安装相关的库">二、安装相关的库</h2>
+
+<p>安装 libevent</p>
+
+<pre><code>sudo apt-get install libevent-dev
+</code></pre>
+
+<p>安装 boost库</p>
+
+<pre><code>sudo apt-get install libboost-dev
+</code></pre>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2136timestamp1474454599073.png/wm" alt="此处输入图片的描述" /></p>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2136timestamp1474454603867.png/wm" alt="此处输入图片的描述" /></p>
+
+<h2 id="三-编写发布者相关的模块">三、编写发布者相关的模块</h2>
+
+<p>首先创建运行的文件夹：</p>
+
+<pre><code>mkdir Test
+cd Test
+</code></pre>
+
+<h3 id="3-1-编写-redis-publisher-h">3.1 编写 redis_publisher.h</h3>
+
+<p>redis_publisher.h 封装了 hiredis ， 实现消息发布给 redis的功能。</p>
+
+<pre><code>#ifndef REDIS_PUBLISHER_H
+#define REDIS_PUBLISHER_H
+
+#include &lt;stdlib.h&gt;
+#include &lt;hiredis/async.h&gt;
+#include &lt;hiredis/adapters/libevent.h&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;unistd.h&gt;
+#include &lt;pthread.h&gt;
+#include &lt;semaphore.h&gt;
+#include &lt;boost/tr1/functional.hpp&gt;
+
+class CRedisPublisher
+{
+public:    
+    CRedisPublisher();
+    ~CRedisPublisher();
+
+    bool init();
+    bool uninit();
+    bool connect();
+    bool disconnect();
+
+    bool publish(const std::string &amp;channel_name,
+        const std::string &amp;message);
+
+private:
+     // 下面三个回调函数供redis服务调用
+    // 连接回调
+    static void connect_callback(const redisAsyncContext *redis_context,
+        int status);
+
+    // 断开连接的回调
+    static void disconnect_callback(const redisAsyncContext *redis_context,
+        int status);
+
+    // 执行命令回调
+    static void command_callback(redisAsyncContext *redis_context,
+        void *reply, void *privdata);
+
+    // 事件分发线程函数
+    static void *event_thread(void *data);
+    void *event_proc();
+
+private:
+     // libevent事件对象
+    event_base *_event_base;
+    // 事件线程ID
+    pthread_t _event_thread;
+    // 事件线程的信号量
+    sem_t _event_sem;
+    // hiredis异步对象
+    redisAsyncContext *_redis_context;
+};
+
+#endif
+</code></pre>
+
+<h3 id="3-2-编写-redis-publisher-cpp">3.2 编写 redis_publisher.cpp</h3>
+
+<pre><code>#include &lt;stddef.h&gt;
+#include &lt;assert.h&gt;
+#include &lt;string.h&gt;
+#include &quot;redis_publisher.h&quot;
+
+CRedisPublisher::CRedisPublisher():_event_base(0), _event_thread(0),
+_redis_context(0)
+{
+}
+
+CRedisPublisher::~CRedisPublisher()
+{
+}
+
+bool CRedisPublisher::init()
+{
+    // initialize the event
+    _event_base = event_base_new();    // 创建libevent对象
+    if (NULL == _event_base)
+    {
+        printf(&quot;: Create redis event failed.\n&quot;);
+        return false;
+    }
+
+    memset(&amp;_event_sem, 0, sizeof(_event_sem));
+    int ret = sem_init(&amp;_event_sem, 0, 0);
+    if (ret != 0)
+    {
+        printf(&quot;: Init sem failed.\n&quot;);
+        return false;
+    }
+
+    return true;
+}
+
+bool CRedisPublisher::uninit()
+{
+    _event_base = NULL;
+
+    sem_destroy(&amp;_event_sem);   
+    return true;
+}
+
+bool CRedisPublisher::connect()
+{
+    // connect redis
+    _redis_context = redisAsyncConnect(&quot;127.0.0.1&quot;, 6379);    // 异步连接到redis服务器上，使用默认端口
+    if (NULL == _redis_context)
+    {
+        printf(&quot;: Connect redis failed.\n&quot;);
+        return false;
+    }
+
+    if (_redis_context-&gt;err)
+    {
+        printf(&quot;: Connect redis error: %d, %s\n&quot;,
+            _redis_context-&gt;err, _redis_context-&gt;errstr);    // 输出错误信息
+        return false;
+    }
+
+    // attach the event
+    redisLibeventAttach(_redis_context, _event_base);    // 将事件绑定到redis context上，使设置给redis的回调跟事件关联
+
+    // 创建事件处理线程
+    int ret = pthread_create(&amp;_event_thread, 0, &amp;CRedisPublisher::event_thread, this);
+    if (ret != 0)
+    {
+        printf(&quot;: create event thread failed.\n&quot;);
+        disconnect();
+        return false;
+    }
+
+    // 设置连接回调，当异步调用连接后，服务器处理连接请求结束后调用，通知调用者连接的状态
+    redisAsyncSetConnectCallback(_redis_context,
+        &amp;CRedisPublisher::connect_callback);
+
+    // 设置断开连接回调，当服务器断开连接后，通知调用者连接断开，调用者可以利用这个函数实现重连
+    redisAsyncSetDisconnectCallback(_redis_context,
+        &amp;CRedisPublisher::disconnect_callback);
+
+    // 启动事件线程
+    sem_post(&amp;_event_sem);
+    return true;
+}
+
+bool CRedisPublisher::disconnect()
+{
+    if (_redis_context)
+    {
+        redisAsyncDisconnect(_redis_context);
+        redisAsyncFree(_redis_context);
+        _redis_context = NULL;
+    }
+
+    return true;
+}
+
+bool CRedisPublisher::publish(const std::string &amp;channel_name,
+    const std::string &amp;message)
+{
+    int ret = redisAsyncCommand(_redis_context,
+        &amp;CRedisPublisher::command_callback, this, &quot;PUBLISH %s %s&quot;,
+        channel_name.c_str(), message.c_str());
+    if (REDIS_ERR == ret)
+    {
+        printf(&quot;Publish command failed: %d\n&quot;, ret);
+        return false;
+    }
+
+    return true;
+}
+
+void CRedisPublisher::connect_callback(const redisAsyncContext *redis_context,
+    int status)
+{
+    if (status != REDIS_OK)
+    {
+        printf(&quot;: Error: %s\n&quot;, redis_context-&gt;errstr);
+    }
+    else
+    {
+        printf(&quot;: Redis connected!\n&quot;);
+    }
+}
+
+void CRedisPublisher::disconnect_callback(
+    const redisAsyncContext *redis_context, int status)
+{
+    if (status != REDIS_OK)
+    {
+        // 这里异常退出，可以尝试重连
+        printf(&quot;: Error: %s\n&quot;, redis_context-&gt;errstr);
+    }
+}
+
+// 消息接收回调函数
+void CRedisPublisher::command_callback(redisAsyncContext *redis_context,
+    void *reply, void *privdata)
+{
+    printf(&quot;command callback.\n&quot;);
+    // 这里不执行任何操作
+}
+
+void *CRedisPublisher::event_thread(void *data)
+{
+    if (NULL == data)
+    {
+        printf(&quot;: Error!\n&quot;);
+        assert(false);
+        return NULL;
+    }
+
+    CRedisPublisher *self_this = reinterpret_cast&lt;CRedisPublisher *&gt;(data);
+    return self_this-&gt;event_proc();
+}
+
+void *CRedisPublisher::event_proc()
+{
+    sem_wait(&amp;_event_sem);
+
+    // 开启事件分发，event_base_dispatch会阻塞
+    event_base_dispatch(_event_base);
+
+    return NULL;
+}
+</code></pre>
+
+<h3 id="四-编写订阅者相关的模块">四、编写订阅者相关的模块</h3>
+
+<p>封装 hiredis， 实现消息订阅 redis 功能</p>
+
+<h3 id="4-1-编写-redis-subscriber-h">4.1 编写 redis_subscriber.h</h3>
+
+<pre><code>#ifndef REDIS_SUBSCRIBER_H
+#define REDIS_SUBSCRIBER_H
+
+#include &lt;stdlib.h&gt;
+#include &lt;hiredis/async.h&gt;
+#include &lt;hiredis/adapters/libevent.h&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;unistd.h&gt;
+#include &lt;pthread.h&gt;
+#include &lt;semaphore.h&gt;
+#include &lt;boost/tr1/functional.hpp&gt;
+
+class CRedisSubscriber
+{
+public:
+    typedef std::tr1::function&lt;void (const char *, const char *, int)&gt;         NotifyMessageFn; // 回调函数对象类型，当接收到消息后调用回调把消息发送出去
+
+    CRedisSubscriber();
+    ~CRedisSubscriber();
+
+    bool init(const NotifyMessageFn &amp;fn);   // 传入回调对象
+    bool uninit();
+    bool connect();
+    bool disconnect();
+
+    // 可以多次调用，订阅多个频道
+    bool subscribe(const std::string &amp;channel_name);
+
+private:
+    // 下面三个回调函数供redis服务调用
+    // 连接回调
+    static void connect_callback(const redisAsyncContext *redis_context,
+        int status);
+
+    // 断开连接的回调
+    static void disconnect_callback(const redisAsyncContext *redis_context,
+        int status);
+
+    // 执行命令回调
+    static void command_callback(redisAsyncContext *redis_context,
+        void *reply, void *privdata);
+
+    // 事件分发线程函数
+    static void *event_thread(void *data);
+    void *event_proc();
+
+private:
+    // libevent事件对象
+    event_base *_event_base;
+    // 事件线程ID
+    pthread_t _event_thread;
+    // 事件线程的信号量
+    sem_t _event_sem;
+    // hiredis异步对象
+    redisAsyncContext *_redis_context;
+
+    // 通知外层的回调函数对象
+    NotifyMessageFn _notify_message_fn;
+};
+
+#endif
+</code></pre>
+
+<h3 id="4-2-编写-redis-subscriber-cpp">4.2 编写 redis_subscriber.cpp</h3>
+
+<pre><code>#include &lt;stddef.h&gt;
+#include &lt;assert.h&gt;
+#include &lt;string.h&gt;
+#include &quot;redis_subscriber.h&quot;
+
+CRedisSubscriber::CRedisSubscriber():_event_base(0), _event_thread(0),
+_redis_context(0)
+{
+}
+
+CRedisSubscriber::~CRedisSubscriber()
+{
+}
+
+bool CRedisSubscriber::init(const NotifyMessageFn &amp;fn)
+{
+    // initialize the event
+    _notify_message_fn = fn;
+    _event_base = event_base_new();    // 创建libevent对象
+    if (NULL == _event_base)
+    {
+        printf(&quot;: Create redis event failed.\n&quot;);
+        return false;
+    }
+
+    memset(&amp;_event_sem, 0, sizeof(_event_sem));
+    int ret = sem_init(&amp;_event_sem, 0, 0);
+    if (ret != 0)
+    {
+        printf(&quot;: Init sem failed.\n&quot;);
+        return false;
+    }
+
+    return true;
+}
+
+bool CRedisSubscriber::uninit()
+{
+    _event_base = NULL;
+
+    sem_destroy(&amp;_event_sem);   
+    return true;
+}
+
+bool CRedisSubscriber::connect()
+{
+    // connect redis
+    _redis_context = redisAsyncConnect(&quot;127.0.0.1&quot;, 6379);    // 异步连接到redis服务器上，使用默认端口
+    if (NULL == _redis_context)
+    {
+        printf(&quot;: Connect redis failed.\n&quot;);
+        return false;
+    }
+
+    if (_redis_context-&gt;err)
+    {
+        printf(&quot;: Connect redis error: %d, %s\n&quot;,
+            _redis_context-&gt;err, _redis_context-&gt;errstr);    // 输出错误信息
+        return false;
+    }
+
+    // attach the event
+    redisLibeventAttach(_redis_context, _event_base);    // 将事件绑定到redis context上，使设置给redis的回调跟事件关联
+
+    // 创建事件处理线程
+    int ret = pthread_create(&amp;_event_thread, 0, &amp;CRedisSubscriber::event_thread, this);
+    if (ret != 0)
+    {
+        printf(&quot;: create event thread failed.\n&quot;);
+        disconnect();
+        return false;
+    }
+
+    // 设置连接回调，当异步调用连接后，服务器处理连接请求结束后调用，通知调用者连接的状态
+    redisAsyncSetConnectCallback(_redis_context,
+        &amp;CRedisSubscriber::connect_callback);
+
+    // 设置断开连接回调，当服务器断开连接后，通知调用者连接断开，调用者可以利用这个函数实现重连
+    redisAsyncSetDisconnectCallback(_redis_context,
+        &amp;CRedisSubscriber::disconnect_callback);
+
+    // 启动事件线程
+    sem_post(&amp;_event_sem);
+    return true;
+}
+
+bool CRedisSubscriber::disconnect()
+{
+    if (_redis_context)
+    {
+        redisAsyncDisconnect(_redis_context);
+        redisAsyncFree(_redis_context);
+        _redis_context = NULL;
+    }
+
+    return true;
+}
+
+bool CRedisSubscriber::subscribe(const std::string &amp;channel_name)
+{
+    int ret = redisAsyncCommand(_redis_context,
+        &amp;CRedisSubscriber::command_callback, this, &quot;SUBSCRIBE %s&quot;,
+        channel_name.c_str());
+    if (REDIS_ERR == ret)
+    {
+        printf(&quot;Subscribe command failed: %d\n&quot;, ret);
+        return false;
+    }
+
+    printf(&quot;: Subscribe success: %s\n&quot;, channel_name.c_str());
+    return true;
+}
+
+void CRedisSubscriber::connect_callback(const redisAsyncContext *redis_context,
+    int status)
+{
+    if (status != REDIS_OK)
+    {
+        printf(&quot;: Error: %s\n&quot;, redis_context-&gt;errstr);
+    }
+    else
+    {
+        printf(&quot;: Redis connected!&quot;);
+    }
+}
+
+void CRedisSubscriber::disconnect_callback(
+    const redisAsyncContext *redis_context, int status)
+{
+    if (status != REDIS_OK)
+    {
+        // 这里异常退出，可以尝试重连
+        printf(&quot;: Error: %s\n&quot;, redis_context-&gt;errstr);
+    }
+}
+
+// 消息接收回调函数
+void CRedisSubscriber::command_callback(redisAsyncContext *redis_context,
+    void *reply, void *privdata)
+{
+    if (NULL == reply || NULL == privdata) {
+        return ;
+    }
+
+    // 静态函数中，要使用类的成员变量，把当前的this指针传进来，用this指针间接访问
+    CRedisSubscriber *self_this = reinterpret_cast&lt;CRedisSubscriber *&gt;(privdata);
+    redisReply *redis_reply = reinterpret_cast&lt;redisReply *&gt;(reply);
+
+    // 订阅接收到的消息是一个带三元素的数组
+    if (redis_reply-&gt;type == REDIS_REPLY_ARRAY &amp;&amp;
+    redis_reply-&gt;elements == 3)
+    {
+        printf(&quot;: Recieve message:%s:%d:%s:%d:%s:%d\n&quot;,
+        redis_reply-&gt;element[0]-&gt;str, redis_reply-&gt;element[0]-&gt;len,
+        redis_reply-&gt;element[1]-&gt;str, redis_reply-&gt;element[1]-&gt;len,
+        redis_reply-&gt;element[2]-&gt;str, redis_reply-&gt;element[2]-&gt;len);
+
+        // 调用函数对象把消息通知给外层
+        self_this-&gt;_notify_message_fn(redis_reply-&gt;element[1]-&gt;str,
+            redis_reply-&gt;element[2]-&gt;str, redis_reply-&gt;element[2]-&gt;len);
+    }
+}
+
+void *CRedisSubscriber::event_thread(void *data)
+{
+    if (NULL == data)
+    {
+        printf(&quot;: Error!\n&quot;);
+        assert(false);
+        return NULL;
+    }
+
+    CRedisSubscriber *self_this = reinterpret_cast&lt;CRedisSubscriber *&gt;(data);
+    return self_this-&gt;event_proc();
+}
+
+void *CRedisSubscriber::event_proc()
+{
+    sem_wait(&amp;_event_sem);
+
+    // 开启事件分发，event_base_dispatch会阻塞
+    event_base_dispatch(_event_base);
+
+    return NULL;
+}
+</code></pre>
+
+<h2 id="五-初始化过程">五、初始化过程</h2>
+
+<p><code>CRedisPublisher</code>和<code>CRedisSubscriber</code>的初始化过程：</p>
+
+<p>初始化事件处理，并获得事件处理的实例：</p>
+
+<pre><code>_event_base = event_base_new();
+</code></pre>
+
+<p>在获得redisAsyncContext *之后，调用</p>
+
+<pre><code>redisLibeventAttach(_redis_context, _event_base);
+</code></pre>
+
+<p>这样就将事件处理和redis关联起来，最后在另一个线程调用</p>
+
+<pre><code>event_base_dispatch(_event_base);
+</code></pre>
+
+<p>启动事件的分发，这是一个阻塞函数，因此，创建了一个新的线程处理事件分发，值得注意的是，这里用信号灯_event_sem控制线程的启动，意在程序调用</p>
+
+<pre><code>redisAsyncSetConnectCallback(_redis_context,
+        &amp;CRedisSubscriber::connect_callback);
+redisAsyncSetDisconnectCallback(_redis_context,
+        &amp;CRedisSubscriber::disconnect_callback);
+</code></pre>
+
+<h2 id="六-编写-publisher-cpp-实现发布消息">六、编写 publisher.cpp ，实现发布消息</h2>
+
+<pre><code>#include &quot;redis_publisher.h&quot;
+
+int main(int argc, char *argv[])
+{
+    CRedisPublisher publisher;
+
+    bool ret = publisher.init();
+    if (!ret)
+    {
+        printf(&quot;Init failed.\n&quot;);
+        return 0;
+    }
+
+    ret = publisher.connect();
+    if (!ret)
+    {
+        printf(&quot;connect failed.&quot;);
+        return 0;
+    }
+
+    while (true)
+    {
+        publisher.publish(&quot;test-channel&quot;, &quot;Hello shiyanlou!&quot;);
+        sleep(1);
+    }
+
+    publisher.disconnect();
+    publisher.uninit();
+    return 0;
+}
+</code></pre>
+
+<h2 id="七-编写-subscriber-cpp-实现消息的订阅">七、编写 subscriber.cpp 实现消息的订阅</h2>
+
+<pre><code>#include &quot;redis_subscriber.h&quot;
+
+void recieve_message(const char *channel_name,
+    const char *message, int len)
+{
+    printf(&quot;Recieve message:\n    channel name: %s\n    message: %s\n&quot;,
+        channel_name, message);
+}
+
+int main(int argc, char *argv[])
+{
+    CRedisSubscriber subscriber;
+    CRedisSubscriber::NotifyMessageFn fn =
+        bind(recieve_message, std::tr1::placeholders::_1,
+        std::tr1::placeholders::_2, std::tr1::placeholders::_3);
+
+    bool ret = subscriber.init(fn);
+    if (!ret)
+    {
+        printf(&quot;Init failed.\n&quot;);
+        return 0;
+    }
+
+    ret = subscriber.connect();
+    if (!ret)
+    {
+        printf(&quot;Connect failed.\n&quot;);
+        return 0;
+    }
+
+    subscriber.subscribe(&quot;test-channel&quot;);
+
+    while (true)
+    {
+        sleep(1);
+    }
+
+    subscriber.disconnect();
+    subscriber.uninit();
+
+    return 0;
+}
+</code></pre>
+
+<h2 id="八-关于编译">八 关于编译</h2>
+
+<p>编写 makefile ,请注意不能使用空格，只能使用 Tab 键，空格会报错，
+直接复制本段 makefile 也会报错，需要将空格转为 Tab 才行,
+所以在写的时候请注意这一点。</p>
+
+<pre><code>vim makefile
+</code></pre>
+
+<pre><code>EXE=server_main client_main
+CC=g++
+FLAG=-lhiredis -levent -lpthread -Wformat
+OBJ=redis_publisher.o publisher.o redis_subscriber.o subscriber.o
+
+all:$(EXE)
+
+$(EXE):$(OBJ)
+    $(CC) -o publisher redis_publisher.o publisher.o $(FLAG)
+    $(CC) -o subscriber redis_subscriber.o subscriber.o $(FLAG)
+
+redis_publisher.o:redis_publisher.h
+redis_subscriber.o:redis_subscriber.h
+
+publisher.o:publisher.cpp
+    $(CC) -c publisher.cpp
+
+subscriber.o:subscriber.cpp
+    $(CC) -c subscriber.cpp
+clean:
+    rm publisher subscriber *.o
+</code></pre>
+
+<h2 id="九-编译运行">九、编译运行</h2>
+
+<p>编译程序：</p>
+
+<pre><code>make
+sudo make install
+</code></pre>
+
+<p>这里也准备了所有代码的压缩包：</p>
+
+<pre><code>wget http://labfile.oss.aliyuncs.com/courses/664/Source.zip
+
+</code></pre>
+
+<pre><code>unzip Source.zip
+cd Source
+</code></pre>
+
+<p>打开终端：</p>
+
+<pre><code>sudo redis-server
+</code></pre>
+
+<p>再打开一个终端，进入Test：</p>
+
+<pre><code>./publisher
+</code></pre>
+
+<p>打开第三个终端，进入Test：</p>
+
+<pre><code>./subscriber
+</code></pre>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2136timestamp1474454641238.png/wm" alt="此处输入图片的描述" /></p>
+
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2136timestamp1474454652615.png/wm" alt="此处输入图片的描述" /></p>
+
+<h2 id="十-实验总结">十、实验总结</h2>
+
+<p>经过这两节课的学习，我们实现了基于 hiredis 库 的订阅和发布，并且将消息从发布者发送给订阅者，因为是基于异步的发送和接收，所以需要回调函数来返回确认相关的信息，整体的架构很清晰，相信大家在学习完本课后能对 redis 异步的发布和订阅有一个很好的认识。</p>
+
+<p>参考资料</p>
+
+<p><a href="http://www.runoob.com/redis/redis-pub-sub.html">Redis 发布订阅</a></p>
+
+<p><a href="http://www.voidcn.com/blog/xumaojun/article/p-5995876.html">linux下使用hiredis异步API实现sub/pub消息订阅和发布的功能</a></p>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f07%2fc--%25E6%2593%258D%25E4%25BD%259Credis%25E5%25AE%259E%25E7%258E%25B0%25E5%25BC%2582%25E6%25AD%25A5%25E8%25AE%25A2%25E9%2598%2585%25E5%2592%258C%25E5%258F%2591%25E5%25B8%2583%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f07%2fc--%25E6%2593%258D%25E4%25BD%259Credis%25E5%25AE%259E%25E7%258E%25B0%25E5%25BC%2582%25E6%25AD%25A5%25E8%25AE%25A2%25E9%2598%2585%25E5%2592%258C%25E5%258F%2591%25E5%25B8%2583%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f07%2fc--%25E6%2593%258D%25E4%25BD%259Credis%25E5%25AE%259E%25E7%258E%25B0%25E5%25BC%2582%25E6%25AD%25A5%25E8%25AE%25A2%25E9%2598%2585%25E5%2592%258C%25E5%258F%2591%25E5%25B8%2583%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2017 董子雄. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f07%2fc--%25E6%2593%258D%25E4%25BD%259Credis%25E5%25AE%259E%25E7%258E%25B0%25E5%25BC%2582%25E6%25AD%25A5%25E8%25AE%25A2%25E9%2598%2585%25E5%2592%258C%25E5%258F%2591%25E5%25B8%2583%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f07%2fc--%25E6%2593%258D%25E4%25BD%259Credis%25E5%25AE%259E%25E7%258E%25B0%25E5%25BC%2582%25E6%25AD%25A5%25E8%25AE%25A2%25E9%2598%2585%25E5%2592%258C%25E5%258F%2591%25E5%25B8%2583%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f07%2fc--%25E6%2593%258D%25E4%25BD%259Credis%25E5%25AE%259E%25E7%258E%25B0%25E5%25BC%2582%25E6%25AD%25A5%25E8%25AE%25A2%25E9%2598%2585%25E5%2592%258C%25E5%258F%2591%25E5%25B8%2583%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f07%2fc--%25E6%2593%258D%25E4%25BD%259Credis%25E5%25AE%259E%25E7%258E%25B0%25E5%25BC%2582%25E6%25AD%25A5%25E8%25AE%25A2%25E9%2598%2585%25E5%2592%258C%25E5%258F%2591%25E5%25B8%2583%2f">
+        <i class="fa fa-google-plus"></i><span>分享到 Google&#43;</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f07%2fc--%25E6%2593%258D%25E4%25BD%259Credis%25E5%25AE%259E%25E7%258E%25B0%25E5%25BC%2582%25E6%25AD%25A5%25E8%25AE%25A2%25E9%2598%2585%25E5%2592%258C%25E5%258F%2591%25E5%25B8%2583%2f">
+        <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f07%2fc--%25E6%2593%258D%25E4%25BD%259Credis%25E5%25AE%259E%25E7%258E%25B0%25E5%25BC%2582%25E6%25AD%25A5%25E8%25AE%25A2%25E9%2598%2585%25E5%2592%258C%25E5%258F%2591%25E5%25B8%2583%2f">
+        <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/0acc4f80229fc6909e781ef03d7ca489?s=110" alt="作者的图片" />
+    
+    <h4 id="about-card-name">董子雄</h4>
+    
+      <div id="about-card-bio"><strong>尘世迷途小码农</strong></div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        尘世迷途小码农
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        中国·帝都
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="搜索" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center"></div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/2017/07/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83/">
+                <h3 class="media-heading">C&#43;&#43;操作Redis实现异步订阅和发布</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">安装redis，hiredis库 一、实验简介 在学习本课程之前，可以先看看我们的 Redis 基础教程,先了解一下 Redis 的 基本用法，试着操作 redis。 Redis（Remote Dictionary Server） 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。 Redis 通常被称为数据结构服务器，因为值（value）可以是 字符串( String ), 哈希( Map ), 列表( list ), 集合( sets ) 和 有序集合( sorted sets )等类型。 它的性能极高，读写速度很快，有很丰富的数据类型，同时还支持对几个操作合并后的原子性执行， 还支持 publish / subscribe , 通知 key 过期等等特性。
+1.1 知识点  介绍 Redis 的基础知识 安装使用 Redis 安装 hiredis 库，并编写测试程序  1.2 效果截图 二、Redis 安装和运行 安装 Redis 可以选择源码安装，或者使用 apt-get 安装。 在环境里安装 Redis 可以使用以下命令：</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/post/">
+                <h3 class="media-heading">Posts</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero=""
+         data-message-one=""
+         data-message-other="">
+         2 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://jasondong.net/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.js"></script>
+
+
+<script src="http://jasondong.net/js/script-wl33z0n6ocaypepiqrazthtivfrliqijej4rq8ek8gvrv1awftmgjuv8k4zc.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight').each(function(i, block) {
+    var code = "";
+    hljs.highlightAuto(block.innerText).value.split(/\r\n|\r|\n/).forEach(function(line) {
+      code += "<span class=\"line\">" + line + "</span><br>";
+    });
+    if (code.length > 0) {
+      block.innerHTML = code;  
+    }
+  });
+  $('pre > code').each(function(i, block) {
+    $(this).addClass('codeblock');
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'http:\/\/jasondong.net\/2017\/07\/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83\/';
+          
+            this.page.identifier = '\/2017\/07\/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'tranquilpeak';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+
+    
+  </body>
+</html>
+
