@@ -10,5 +10,23 @@
 	<atom:link href="http://jasondong.net/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Categories</title>
+      <link>http://jasondong.net/categories/categories/</link>
+      <pubDate>Wed, 09 Aug 2017 23:04:39 +0800</pubDate>
+      
+      <guid>http://jasondong.net/categories/categories/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>随手一写</title>
+      <link>http://jasondong.net/categories/%E9%9A%8F%E6%89%8B%E4%B8%80%E5%86%99/</link>
+      <pubDate>Wed, 09 Aug 2017 23:04:39 +0800</pubDate>
+      
+      <guid>http://jasondong.net/categories/%E9%9A%8F%E6%89%8B%E4%B8%80%E5%86%99/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

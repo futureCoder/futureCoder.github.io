@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://jasondong.net/2017/08/%E5%BC%80%E7%AF%87/</loc>
+    <lastmod>2017-08-09T23:04:39+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://jasondong.net/archives/</loc>
     <priority>0</priority>
   </url>
@@ -13,12 +18,31 @@
   </url>
   
   <url>
+    <loc>http://jasondong.net/categories/categories/</loc>
+    <lastmod>2017-08-09T23:04:39+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://jasondong.net/</loc>
+    <lastmod>2017-08-09T23:04:39+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jasondong.net/post/</loc>
+    <lastmod>2017-08-09T23:04:39+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://jasondong.net/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jasondong.net/categories/%E9%9A%8F%E6%89%8B%E4%B8%80%E5%86%99/</loc>
+    <lastmod>2017-08-09T23:04:39+08:00</lastmod>
     <priority>0</priority>
   </url>
   

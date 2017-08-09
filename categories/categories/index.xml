@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>JasonDong&#39;s BLOG</title>
-    <link>http://jasondong.net/</link>
-    <description>Recent content on JasonDong&#39;s BLOG</description>
+    <title>Categories on JasonDong&#39;s BLOG</title>
+    <link>http://jasondong.net/categories/categories/</link>
+    <description>Recent content in Categories on JasonDong&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 09 Aug 2017 23:04:39 +0800</lastBuildDate>
     
-	<atom:link href="http://jasondong.net/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://jasondong.net/categories/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
