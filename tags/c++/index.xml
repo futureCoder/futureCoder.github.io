@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>JasonDong&#39;s BLOG</title>
-    <link>http://jasondong.net/</link>
-    <description>Recent content on JasonDong&#39;s BLOG</description>
+    <title>C&#43;&#43; on JasonDong&#39;s BLOG</title>
+    <link>http://jasondong.net/tags/c&#43;&#43;/</link>
+    <description>Recent content in C&#43;&#43; on JasonDong&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Fri, 11 Aug 2017 13:05:21 +0800</lastBuildDate>
     
-	<atom:link href="http://jasondong.net/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://jasondong.net/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,17 +20,6 @@
       <description>安装redis，hiredis库 一、实验简介 Redis（Remote Dictionary Server） 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。 Redis 通常被称为数据结构服务器，因为值（value）可以是 字符串( String ), 哈希( Map ), 列表( list ), 集合( sets ) 和 有序集合( sorted sets )等类型。 它的性能极高，读写速度很快，有很丰富的数据类型，同时还支持对几个操作合并后的原子性执行， 还支持 publish / subscribe , 通知 key 过期等等特性。
 1.1 知识点  介绍 Redis 的基础知识 安装使用 Redis 安装 hiredis 库，并编写测试程序  1.2 效果截图 二、Redis 安装和运行 安装 Redis 可以选择源码安装，或者使用 apt-get 安装。 在环境里安装 Redis 可以使用以下命令：
 sudo apt-get update sudo apt-get install redis-server  启动 Redis</description>
-    </item>
-    
-    <item>
-      <title>开篇</title>
-      <link>http://jasondong.net/2017/08/%E5%BC%80%E7%AF%87/</link>
-      <pubDate>Wed, 09 Aug 2017 23:04:39 +0800</pubDate>
-      
-      <guid>http://jasondong.net/2017/08/%E5%BC%80%E7%AF%87/</guid>
-      <description>为什么写博客 作为中学时期，一个作文分数常年不足20分（60满分）的选手，写个博客其实对我来说就好像让张飞绣花一样难受。 但是还是下定决心要搞一个博客有事没事写一些东西，因为最近愈发的发现我的语言表达能力十分拙计。我觉得在与人交流或者沟通的时候，思维逻辑一定要清晰，逻辑清晰了，才能表达清晰。那怎样才能做到逻辑清晰呢？简单来说就是少说废话，列成条目，突出重点。但工作性质决定我每天都是在和机器打交道，每天和人说话基本也就数百字，所以准备通过没事写一些东西，提高一下自己的写作能力和表达能力。
-说来惭愧，写博客的想法几年前就有了，也断断续续写了一些，但一直没有坚持下来，我今年开始下定决心要持续写博客，当然作为一个码农，大部分应该都是关于技术方面的，偶尔会写一下自己的感悟或者读书笔记，算是自己给以后定的一个长期任务吧。
-就这几行字憋了二十分钟了，行了，第一篇就先这样。</description>
     </item>
     
   </channel>

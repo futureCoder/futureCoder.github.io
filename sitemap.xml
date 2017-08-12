@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://jasondong.net/2017/08/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83/</loc>
+    <lastmod>2017-08-11T13:05:21+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://jasondong.net/2017/08/%E5%BC%80%E7%AF%87/</loc>
     <lastmod>2017-08-09T23:04:39+08:00</lastmod>
   </url>
@@ -13,30 +18,55 @@
   </url>
   
   <url>
+    <loc>http://jasondong.net/tags/c&#43;&#43;/</loc>
+    <lastmod>2017-08-11T13:05:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://jasondong.net/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://jasondong.net/categories/categories/</loc>
-    <lastmod>2017-08-09T23:04:39+08:00</lastmod>
+    <lastmod>2017-08-11T13:05:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://jasondong.net/</loc>
-    <lastmod>2017-08-09T23:04:39+08:00</lastmod>
+    <lastmod>2017-08-11T13:05:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jasondong.net/tags/linux/</loc>
+    <lastmod>2017-08-11T13:05:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://jasondong.net/post/</loc>
-    <lastmod>2017-08-09T23:04:39+08:00</lastmod>
+    <lastmod>2017-08-11T13:05:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jasondong.net/tags/redis/</loc>
+    <lastmod>2017-08-11T13:05:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://jasondong.net/tags/</loc>
+    <lastmod>2017-08-11T13:05:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jasondong.net/categories/techarticle/</loc>
+    <lastmod>2017-08-11T13:05:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
