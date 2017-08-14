@@ -469,45 +469,69 @@ int redisAsyncCommandArgv(
 
 <h3 id="3-4-编写测试代码">3.4 编写测试代码</h3>
 
-<pre><code>vim test.cpp
-</code></pre>
 
-<pre><code>#include &lt;hiredis/hiredis.h&gt;
+  
+    
+  
+  
+  
+  
+
+
+<figure class="highlight ">
+  <figcaption>
+    
+      <span>test.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class=" code-highlight">
+#include &lt;hiredis/hiredis.h&gt;
 #include &lt;iostream&gt;
 #include &lt;string&gt;
 int main(int argc, char **argv)
 {
     struct timeval timeout = {2, 0};    //2s的超时时间
 
-    redisContext *pRedisContext = (redisContext*)redisConnectWithTimeout(&quot;127.0.0.1&quot;, 6379, timeout);   //redisContext是Redis操作对象
+    redisContext *pRedisContext = (redisContext*)redisConnectWithTimeout(&#34;127.0.0.1&#34;, 6379, timeout);	//redisContext是Redis操作对象
     if ( (NULL == pRedisContext) || (pRedisContext-&gt;err) )
     {
         if (pRedisContext)
         {
-            std::cout &lt;&lt; &quot;connect error:&quot; &lt;&lt; pRedisContext-&gt;errstr &lt;&lt; std::endl;
+            std::cout &lt;&lt; &#34;connect error:&#34; &lt;&lt; pRedisContext-&gt;errstr &lt;&lt; std::endl;
         }
         else
         {
-            std::cout &lt;&lt; &quot;connect error: can't allocate redis context.&quot; &lt;&lt; std::endl;
+            std::cout &lt;&lt; &#34;connect error: can&#39;t allocate redis context.&#34; &lt;&lt; std::endl;
         }
         return -1;
     }
     //redisReply是Redis命令回复对象 redis返回的信息保存在redisReply对象中
-    redisReply *pRedisReply = (redisReply*)redisCommand(pRedisContext, &quot;INFO&quot;);  //执行INFO 命令，可以看到 redis 的一些详细情况
+    redisReply *pRedisReply = (redisReply*)redisCommand(pRedisContext, &#34;INFO&#34;);  //执行INFO 命令，可以看到 redis 的一些详细情况
     std::cout &lt;&lt; pRedisReply-&gt;str &lt;&lt; std::endl;
     //当多条Redis命令使用同一个redisReply对象时
     //每一次执行完Redis命令后需要清空redisReply 以免对下一次的Redis操作造成影响
     freeReplyObject(pRedisReply);   
 
     return 0;
-}
-</code></pre>
+}</pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
 
 <p>运行：</p>
 
 <pre><code>sudo redis-server   # 单独开一个 shell 执行命令
 g++ test.cpp -o test -lhiredis
-./test              
+./test
 </code></pre>
 
 <p><img src="https://dn-anything-about-doc.qbox.me/document-uid59274labid2135timestamp1474357843053.png/wm" alt="此处输入图片的描述" /></p>
@@ -579,496 +603,59 @@ g++ test.cpp -o test -lhiredis
 cd Test
 </code></pre>
 
-<h3 id="3-1-编写-redis-publisher-h">3.1 编写 redis_publisher.h</h3>
+<h3 id="3-1-编写-redis-publisher">3.1 编写 redis_publisher</h3>
 
 <p>redis_publisher.h 封装了 hiredis ， 实现消息发布给 redis的功能。</p>
 
-<pre><code>#ifndef REDIS_PUBLISHER_H
-#define REDIS_PUBLISHER_H
 
-#include &lt;stdlib.h&gt;
-#include &lt;hiredis/async.h&gt;
-#include &lt;hiredis/adapters/libevent.h&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-#include &lt;unistd.h&gt;
-#include &lt;pthread.h&gt;
-#include &lt;semaphore.h&gt;
-#include &lt;boost/tr1/functional.hpp&gt;
 
-class CRedisPublisher
-{
-public:    
-    CRedisPublisher();
-    ~CRedisPublisher();
 
-    bool init();
-    bool uninit();
-    bool connect();
-    bool disconnect();
+  
+    
+  
+  
 
-    bool publish(const std::string &amp;channel_name,
-        const std::string &amp;message);
-
-private:
-     // 下面三个回调函数供redis服务调用
-    // 连接回调
-    static void connect_callback(const redisAsyncContext *redis_context,
-        int status);
-
-    // 断开连接的回调
-    static void disconnect_callback(const redisAsyncContext *redis_context,
-        int status);
-
-    // 执行命令回调
-    static void command_callback(redisAsyncContext *redis_context,
-        void *reply, void *privdata);
-
-    // 事件分发线程函数
-    static void *event_thread(void *data);
-    void *event_proc();
-
-private:
-     // libevent事件对象
-    event_base *_event_base;
-    // 事件线程ID
-    pthread_t _event_thread;
-    // 事件线程的信号量
-    sem_t _event_sem;
-    // hiredis异步对象
-    redisAsyncContext *_redis_context;
-};
-
-#endif
-</code></pre>
-
-<h3 id="3-2-编写-redis-publisher-cpp">3.2 编写 redis_publisher.cpp</h3>
-
-<pre><code>#include &lt;stddef.h&gt;
-#include &lt;assert.h&gt;
-#include &lt;string.h&gt;
-#include &quot;redis_publisher.h&quot;
-
-CRedisPublisher::CRedisPublisher():_event_base(0), _event_thread(0),
-_redis_context(0)
-{
-}
-
-CRedisPublisher::~CRedisPublisher()
-{
-}
-
-bool CRedisPublisher::init()
-{
-    // initialize the event
-    _event_base = event_base_new();    // 创建libevent对象
-    if (NULL == _event_base)
-    {
-        printf(&quot;: Create redis event failed.\n&quot;);
-        return false;
-    }
-
-    memset(&amp;_event_sem, 0, sizeof(_event_sem));
-    int ret = sem_init(&amp;_event_sem, 0, 0);
-    if (ret != 0)
-    {
-        printf(&quot;: Init sem failed.\n&quot;);
-        return false;
-    }
-
-    return true;
-}
-
-bool CRedisPublisher::uninit()
-{
-    _event_base = NULL;
-
-    sem_destroy(&amp;_event_sem);   
-    return true;
-}
-
-bool CRedisPublisher::connect()
-{
-    // connect redis
-    _redis_context = redisAsyncConnect(&quot;127.0.0.1&quot;, 6379);    // 异步连接到redis服务器上，使用默认端口
-    if (NULL == _redis_context)
-    {
-        printf(&quot;: Connect redis failed.\n&quot;);
-        return false;
-    }
-
-    if (_redis_context-&gt;err)
-    {
-        printf(&quot;: Connect redis error: %d, %s\n&quot;,
-            _redis_context-&gt;err, _redis_context-&gt;errstr);    // 输出错误信息
-        return false;
-    }
-
-    // attach the event
-    redisLibeventAttach(_redis_context, _event_base);    // 将事件绑定到redis context上，使设置给redis的回调跟事件关联
-
-    // 创建事件处理线程
-    int ret = pthread_create(&amp;_event_thread, 0, &amp;CRedisPublisher::event_thread, this);
-    if (ret != 0)
-    {
-        printf(&quot;: create event thread failed.\n&quot;);
-        disconnect();
-        return false;
-    }
-
-    // 设置连接回调，当异步调用连接后，服务器处理连接请求结束后调用，通知调用者连接的状态
-    redisAsyncSetConnectCallback(_redis_context,
-        &amp;CRedisPublisher::connect_callback);
-
-    // 设置断开连接回调，当服务器断开连接后，通知调用者连接断开，调用者可以利用这个函数实现重连
-    redisAsyncSetDisconnectCallback(_redis_context,
-        &amp;CRedisPublisher::disconnect_callback);
-
-    // 启动事件线程
-    sem_post(&amp;_event_sem);
-    return true;
-}
-
-bool CRedisPublisher::disconnect()
-{
-    if (_redis_context)
-    {
-        redisAsyncDisconnect(_redis_context);
-        redisAsyncFree(_redis_context);
-        _redis_context = NULL;
-    }
-
-    return true;
-}
-
-bool CRedisPublisher::publish(const std::string &amp;channel_name,
-    const std::string &amp;message)
-{
-    int ret = redisAsyncCommand(_redis_context,
-        &amp;CRedisPublisher::command_callback, this, &quot;PUBLISH %s %s&quot;,
-        channel_name.c_str(), message.c_str());
-    if (REDIS_ERR == ret)
-    {
-        printf(&quot;Publish command failed: %d\n&quot;, ret);
-        return false;
-    }
-
-    return true;
-}
-
-void CRedisPublisher::connect_callback(const redisAsyncContext *redis_context,
-    int status)
-{
-    if (status != REDIS_OK)
-    {
-        printf(&quot;: Error: %s\n&quot;, redis_context-&gt;errstr);
-    }
-    else
-    {
-        printf(&quot;: Redis connected!\n&quot;);
-    }
-}
-
-void CRedisPublisher::disconnect_callback(
-    const redisAsyncContext *redis_context, int status)
-{
-    if (status != REDIS_OK)
-    {
-        // 这里异常退出，可以尝试重连
-        printf(&quot;: Error: %s\n&quot;, redis_context-&gt;errstr);
-    }
-}
-
-// 消息接收回调函数
-void CRedisPublisher::command_callback(redisAsyncContext *redis_context,
-    void *reply, void *privdata)
-{
-    printf(&quot;command callback.\n&quot;);
-    // 这里不执行任何操作
-}
-
-void *CRedisPublisher::event_thread(void *data)
-{
-    if (NULL == data)
-    {
-        printf(&quot;: Error!\n&quot;);
-        assert(false);
-        return NULL;
-    }
-
-    CRedisPublisher *self_this = reinterpret_cast&lt;CRedisPublisher *&gt;(data);
-    return self_this-&gt;event_proc();
-}
-
-void *CRedisPublisher::event_proc()
-{
-    sem_wait(&amp;_event_sem);
-
-    // 开启事件分发，event_base_dispatch会阻塞
-    event_base_dispatch(_event_base);
-
-    return NULL;
-}
-</code></pre>
+<figure class="codeblock codeblock--tabbed">
+  <figcaption>
+    
+      <span>redis_publisher</span>
+    
+    <ul class="tabs">
+      
+    </ul>
+  </figcaption> 
+  <div class="tabs-content">
+    
+  </div>
+</figure>
 
 <h3 id="四-编写订阅者相关的模块">四、编写订阅者相关的模块</h3>
 
 <p>封装 hiredis， 实现消息订阅 redis 功能</p>
 
-<h3 id="4-1-编写-redis-subscriber-h">4.1 编写 redis_subscriber.h</h3>
+<h3 id="4-1-编写-redis-subscriber">4.1 编写 redis_subscriber</h3>
 
-<pre><code>#ifndef REDIS_SUBSCRIBER_H
-#define REDIS_SUBSCRIBER_H
 
-#include &lt;stdlib.h&gt;
-#include &lt;hiredis/async.h&gt;
-#include &lt;hiredis/adapters/libevent.h&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-#include &lt;unistd.h&gt;
-#include &lt;pthread.h&gt;
-#include &lt;semaphore.h&gt;
-#include &lt;boost/tr1/functional.hpp&gt;
 
-class CRedisSubscriber
-{
-public:
-    typedef std::tr1::function&lt;void (const char *, const char *, int)&gt;         NotifyMessageFn; // 回调函数对象类型，当接收到消息后调用回调把消息发送出去
 
-    CRedisSubscriber();
-    ~CRedisSubscriber();
+  
+    
+  
+  
 
-    bool init(const NotifyMessageFn &amp;fn);   // 传入回调对象
-    bool uninit();
-    bool connect();
-    bool disconnect();
-
-    // 可以多次调用，订阅多个频道
-    bool subscribe(const std::string &amp;channel_name);
-
-private:
-    // 下面三个回调函数供redis服务调用
-    // 连接回调
-    static void connect_callback(const redisAsyncContext *redis_context,
-        int status);
-
-    // 断开连接的回调
-    static void disconnect_callback(const redisAsyncContext *redis_context,
-        int status);
-
-    // 执行命令回调
-    static void command_callback(redisAsyncContext *redis_context,
-        void *reply, void *privdata);
-
-    // 事件分发线程函数
-    static void *event_thread(void *data);
-    void *event_proc();
-
-private:
-    // libevent事件对象
-    event_base *_event_base;
-    // 事件线程ID
-    pthread_t _event_thread;
-    // 事件线程的信号量
-    sem_t _event_sem;
-    // hiredis异步对象
-    redisAsyncContext *_redis_context;
-
-    // 通知外层的回调函数对象
-    NotifyMessageFn _notify_message_fn;
-};
-
-#endif
-</code></pre>
-
-<h3 id="4-2-编写-redis-subscriber-cpp">4.2 编写 redis_subscriber.cpp</h3>
-
-<pre><code>#include &lt;stddef.h&gt;
-#include &lt;assert.h&gt;
-#include &lt;string.h&gt;
-#include &quot;redis_subscriber.h&quot;
-
-CRedisSubscriber::CRedisSubscriber():_event_base(0), _event_thread(0),
-_redis_context(0)
-{
-}
-
-CRedisSubscriber::~CRedisSubscriber()
-{
-}
-
-bool CRedisSubscriber::init(const NotifyMessageFn &amp;fn)
-{
-    // initialize the event
-    _notify_message_fn = fn;
-    _event_base = event_base_new();    // 创建libevent对象
-    if (NULL == _event_base)
-    {
-        printf(&quot;: Create redis event failed.\n&quot;);
-        return false;
-    }
-
-    memset(&amp;_event_sem, 0, sizeof(_event_sem));
-    int ret = sem_init(&amp;_event_sem, 0, 0);
-    if (ret != 0)
-    {
-        printf(&quot;: Init sem failed.\n&quot;);
-        return false;
-    }
-
-    return true;
-}
-
-bool CRedisSubscriber::uninit()
-{
-    _event_base = NULL;
-
-    sem_destroy(&amp;_event_sem);   
-    return true;
-}
-
-bool CRedisSubscriber::connect()
-{
-    // connect redis
-    _redis_context = redisAsyncConnect(&quot;127.0.0.1&quot;, 6379);    // 异步连接到redis服务器上，使用默认端口
-    if (NULL == _redis_context)
-    {
-        printf(&quot;: Connect redis failed.\n&quot;);
-        return false;
-    }
-
-    if (_redis_context-&gt;err)
-    {
-        printf(&quot;: Connect redis error: %d, %s\n&quot;,
-            _redis_context-&gt;err, _redis_context-&gt;errstr);    // 输出错误信息
-        return false;
-    }
-
-    // attach the event
-    redisLibeventAttach(_redis_context, _event_base);    // 将事件绑定到redis context上，使设置给redis的回调跟事件关联
-
-    // 创建事件处理线程
-    int ret = pthread_create(&amp;_event_thread, 0, &amp;CRedisSubscriber::event_thread, this);
-    if (ret != 0)
-    {
-        printf(&quot;: create event thread failed.\n&quot;);
-        disconnect();
-        return false;
-    }
-
-    // 设置连接回调，当异步调用连接后，服务器处理连接请求结束后调用，通知调用者连接的状态
-    redisAsyncSetConnectCallback(_redis_context,
-        &amp;CRedisSubscriber::connect_callback);
-
-    // 设置断开连接回调，当服务器断开连接后，通知调用者连接断开，调用者可以利用这个函数实现重连
-    redisAsyncSetDisconnectCallback(_redis_context,
-        &amp;CRedisSubscriber::disconnect_callback);
-
-    // 启动事件线程
-    sem_post(&amp;_event_sem);
-    return true;
-}
-
-bool CRedisSubscriber::disconnect()
-{
-    if (_redis_context)
-    {
-        redisAsyncDisconnect(_redis_context);
-        redisAsyncFree(_redis_context);
-        _redis_context = NULL;
-    }
-
-    return true;
-}
-
-bool CRedisSubscriber::subscribe(const std::string &amp;channel_name)
-{
-    int ret = redisAsyncCommand(_redis_context,
-        &amp;CRedisSubscriber::command_callback, this, &quot;SUBSCRIBE %s&quot;,
-        channel_name.c_str());
-    if (REDIS_ERR == ret)
-    {
-        printf(&quot;Subscribe command failed: %d\n&quot;, ret);
-        return false;
-    }
-
-    printf(&quot;: Subscribe success: %s\n&quot;, channel_name.c_str());
-    return true;
-}
-
-void CRedisSubscriber::connect_callback(const redisAsyncContext *redis_context,
-    int status)
-{
-    if (status != REDIS_OK)
-    {
-        printf(&quot;: Error: %s\n&quot;, redis_context-&gt;errstr);
-    }
-    else
-    {
-        printf(&quot;: Redis connected!&quot;);
-    }
-}
-
-void CRedisSubscriber::disconnect_callback(
-    const redisAsyncContext *redis_context, int status)
-{
-    if (status != REDIS_OK)
-    {
-        // 这里异常退出，可以尝试重连
-        printf(&quot;: Error: %s\n&quot;, redis_context-&gt;errstr);
-    }
-}
-
-// 消息接收回调函数
-void CRedisSubscriber::command_callback(redisAsyncContext *redis_context,
-    void *reply, void *privdata)
-{
-    if (NULL == reply || NULL == privdata) {
-        return ;
-    }
-
-    // 静态函数中，要使用类的成员变量，把当前的this指针传进来，用this指针间接访问
-    CRedisSubscriber *self_this = reinterpret_cast&lt;CRedisSubscriber *&gt;(privdata);
-    redisReply *redis_reply = reinterpret_cast&lt;redisReply *&gt;(reply);
-
-    // 订阅接收到的消息是一个带三元素的数组
-    if (redis_reply-&gt;type == REDIS_REPLY_ARRAY &amp;&amp;
-    redis_reply-&gt;elements == 3)
-    {
-        printf(&quot;: Recieve message:%s:%d:%s:%d:%s:%d\n&quot;,
-        redis_reply-&gt;element[0]-&gt;str, redis_reply-&gt;element[0]-&gt;len,
-        redis_reply-&gt;element[1]-&gt;str, redis_reply-&gt;element[1]-&gt;len,
-        redis_reply-&gt;element[2]-&gt;str, redis_reply-&gt;element[2]-&gt;len);
-
-        // 调用函数对象把消息通知给外层
-        self_this-&gt;_notify_message_fn(redis_reply-&gt;element[1]-&gt;str,
-            redis_reply-&gt;element[2]-&gt;str, redis_reply-&gt;element[2]-&gt;len);
-    }
-}
-
-void *CRedisSubscriber::event_thread(void *data)
-{
-    if (NULL == data)
-    {
-        printf(&quot;: Error!\n&quot;);
-        assert(false);
-        return NULL;
-    }
-
-    CRedisSubscriber *self_this = reinterpret_cast&lt;CRedisSubscriber *&gt;(data);
-    return self_this-&gt;event_proc();
-}
-
-void *CRedisSubscriber::event_proc()
-{
-    sem_wait(&amp;_event_sem);
-
-    // 开启事件分发，event_base_dispatch会阻塞
-    event_base_dispatch(_event_base);
-
-    return NULL;
-}
-</code></pre>
+<figure class="codeblock codeblock--tabbed">
+  <figcaption>
+    
+      <span>redis_publisher</span>
+    
+    <ul class="tabs">
+      
+    </ul>
+  </figcaption> 
+  <div class="tabs-content">
+    
+  </div>
+</figure>
 
 <h2 id="五-初始化过程">五、初始化过程</h2>
 
