@@ -6,7 +6,7 @@
     <description>Recent content in Tags on JasonDong&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 11 Aug 2017 13:05:21 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 28 Aug 2017 16:33:57 +0800</lastBuildDate>
     
 	<atom:link href="http://jasondong.net/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,18 @@
     <item>
       <title>C&#43;&#43;</title>
       <link>http://jasondong.net/tags/c&#43;&#43;/</link>
-      <pubDate>Fri, 11 Aug 2017 13:05:21 +0800</pubDate>
+      <pubDate>Mon, 28 Aug 2017 16:33:57 +0800</pubDate>
       
       <guid>http://jasondong.net/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Leetcode</title>
+      <link>http://jasondong.net/tags/leetcode/</link>
+      <pubDate>Mon, 28 Aug 2017 16:33:57 +0800</pubDate>
+      
+      <guid>http://jasondong.net/tags/leetcode/</guid>
       <description></description>
     </item>
     
