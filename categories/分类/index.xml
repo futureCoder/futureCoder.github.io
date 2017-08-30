@@ -6,10 +6,27 @@
     <description>Recent content in 分类 on JasonDong&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 28 Aug 2017 16:33:57 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 30 Aug 2017 08:22:31 +0800</lastBuildDate>
     
 	<atom:link href="http://jasondong.net/categories/%E5%88%86%E7%B1%BB/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hugo博客tranquilpeak主题使用LiveRe评论系统</title>
+      <link>http://jasondong.net/2017/08/hugo%E5%8D%9A%E5%AE%A2tranquilpeak%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8livere%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Wed, 30 Aug 2017 08:22:31 +0800</pubDate>
+      
+      <guid>http://jasondong.net/2017/08/hugo%E5%8D%9A%E5%AE%A2tranquilpeak%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8livere%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</guid>
+      <description>Hugo内置了Disqus评论系统，Disqus虽然好用，但在大中华局域网下经常加载不出或者干脆不显示，多说也关了，准备用搜狐畅言,但注册信息时需要网站的备案号，否则只能用15天，无奈放弃。后来无意在电影天堂还是啥网站看到他评论系统还不错，查了一下，是韩国的牌子LiveRe(来必力)，于是小折腾一下。
+注册LiveRe 略过，将网站注册完成后到管理页面-代码管理中可以拿到一般网站的安装代码。里面有你的data-uid。
+更改tranquilpeak主题文件 tranquilpeak原声支持Disqus，通过在config.toml中设置disqusShortname的方式可以方便的使用Disqus。所以这里也不添加新的config字段了，直接将disqusShortname设置为LiveRe的data-uid。但这样就完了么？答案是naive。我们还需要将主题中Disqus的安装代码替换掉，下面给出需要替换的文件内容。
+layout_default\single.html 评论部分的分区是在&amp;lt;div id=&amp;quot;post-footer&amp;quot;&amp;gt;中，其中有一段代码
+{{ if not (eq .Params.comments false) }} {{ if .Site.DisqusShortname }} &amp;lt;div id=&amp;quot;lv-container&amp;quot; data-id=&amp;quot;city&amp;quot; data-uid=&#39;{{ .Site.DisqusShortname }}&#39;&amp;gt; {{ partial &amp;quot;post/disqus.html&amp;quot; . }} &amp;lt;/div&amp;gt; {{ end }} {{ end }}  这里是LiveRe插件是否启用的判断逻辑，如果设置了disqusShortname且开启了评论功能，那么就会加载LiveRe，data-uid即是配置在config.toml中的disqusShortname字段。
+layout\partials\post\disqus.html 其实改无所谓，改只是为了显示起来更统一。
+&amp;lt;div id=&amp;quot;livere_thread&amp;quot;&amp;gt; &amp;lt;noscript&amp;gt;为正常使用来必力评论功能请激活JavaScript&amp;lt;/noscript&amp;gt; &amp;lt;/div&amp;gt;  layout\partials\post\actions.html 这里面的disqus_thread也改为livere_thread，不然链接不到。
+layout\partials\script.html 不好意思把重点放在了最后，这里才是加载LiveRe插件的脚本逻辑。 找到{{ if .Site.DisqusShortname }},可以看到原来这里是配置Disqus的安装代码,我们需要做的就是把Disqus的代码替换为LiveRe的安装代码。注意不要把&amp;lt;div id=&amp;quot;lv-container&amp;quot; data-id=&amp;quot;city&amp;quot; data-uid=&#39;{{ .Site.DisqusShortname }}&#39;&amp;gt;这行写在这里，不然界面布局会乱。改完后大概是这样
+{{ if .IsPage }} {{ if not (eq .Params.comments false) }} {{ if .</description>
+    </item>
     
     <item>
       <title>LeetCode_001_TwoSum解题报告</title>

@@ -17,21 +17,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.25.1">
     <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
-    <title>Posts</title>
+    <title>Livere</title>
     <meta name="author" content="董子雄">
     <meta name="keywords" content="">
 
     <link rel="icon" href="http://jasondong.net/favicon.png">
     
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="http://jasondong.net/post/index.xml">
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="http://jasondong.net/tags/livere/index.xml">
     
 
     
     <meta name="description" content="JasonDong&#39;s Blog">
     <meta property="og:description" content="JasonDong&#39;s Blog">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Posts">
-    <meta property="og:url" content="/post/">
+    <meta property="og:title" content="Livere">
+    <meta property="og:url" content="/tags/livere/">
     <meta property="og:site_name" content="JasonDong&#39;s BLOG">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="JasonDong&#39;s BLOG">
@@ -216,15 +216,18 @@
 </nav>
 
       
+        
 
+      
       <div id="main" data-behavior="2"
         class="
                hasCoverMetaIn
                ">
-        <section class="postShorten-group main-content-wrap">
-          
-          
+        
+          <section class="postShorten-group main-content-wrap">
             
+            
+              
   
     
       
@@ -293,203 +296,11 @@ layout\partials\script.html 不好意思把重点放在了最后，这里才是�
   
 </article>
 
-          
             
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="http://jasondong.net/2017/08/leetcode_001_twosum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
-          LeetCode_001_TwoSum解题报告
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
-  
-    <time itemprop="datePublished" datetime="2017-08-28T16:33:57&#43;08:00">
-      
-  
-  
-  
-  
-    八月28日 · 2017年 
-  
-
-    </time>
-  
-  
-  
-  
-    <span>发布在</span>
-    
-      <a class="category-link" href="http://jasondong.net/categories/%e5%88%86%e7%b1%bb">分类</a>, 
-    
-      <a class="category-link" href="http://jasondong.net/categories/%e7%ae%97%e6%b3%95">算法</a>
-    
-  
-
-
-</div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        题目描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution  , and you may not use the same element twice. Example: Given nums = [2, 7, 11, 15], target = 9, Because nums[0] + nums[1] = 2 + 7 = 9, return [0, 1].
-思路 暂存目前已经遍历过的元素，在遍历剩余元素时判断 target-当前元素 是否已存在，如存在则返回。由于返回值是元素下标，同时需要暂存元素值，那么则需要一个map，键为元素值，值为元素下标。
-        <br>
-        <a href="http://jasondong.net/2017/08/leetcode_001_twosum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" class="postShorten-excerpt_link link">阅读全文</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
             
-  
-    
-  
 
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-left" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="http://jasondong.net/2017/08/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83/">
-          C&#43;&#43;操作Redis实现异步订阅和发布
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
-  
-    <time itemprop="datePublished" datetime="2017-08-11T13:05:21&#43;08:00">
-      
-  
-  
-  
-  
-    八月11日 · 2017年 
-  
-
-    </time>
-  
-  
-  
-  
-    <span>发布在</span>
-    
-      <a class="category-link" href="http://jasondong.net/categories/%e5%88%86%e7%b1%bb">分类</a>, 
-    
-      <a class="category-link" href="http://jasondong.net/categories/%e6%8a%80%e6%9c%af%e6%96%87%e7%ab%a0">技术文章</a>
-    
-  
-
-
-</div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        安装redis，hiredis库 一、实验简介 Redis（Remote Dictionary Server） 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。 Redis 通常被称为数据结构服务器，因为值（value）可以是 字符串( String ), 哈希( Map ), 列表( list ), 集合( sets ) 和 有序集合( sorted sets )等类型。 它的性能极高，读写速度很快，有很丰富的数据类型，同时还支持对几个操作合并后的原子性执行， 还支持 publish / subscribe , 通知 key 过期等等特性。
-1.1 知识点  介绍 Redis 的基础知识 安装使用 Redis 安装 hiredis 库，并编写测试程序  1.2 效果截图 二、Redis 安装和运行 安装 Redis 可以选择源码安装，或者使用 apt-get 安装。 在环境里安装 Redis 可以使用以下命令：
-sudo apt-get update sudo apt-get install redis-server  启动 Redis
-        <br>
-        <a href="http://jasondong.net/2017/08/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83/" class="postShorten-excerpt_link link">阅读全文</a>
+          </section>
         
-      </p>
-    </div>
-  </div>
-  
-    <a href="http://jasondong.net/2017/08/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83/">
-      <div class="postShorten-thumbnailimg">
-        <img alt="" itemprop="image" src="//otnjj3xqi.bkt.clouddn.com/image/blog/C&#43;&#43;%E6%93%8D%E4%BD%9CRedis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83city-750.jpg"/>
-      </div>
-    </a>
-  
-</article>
-
-          
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="http://jasondong.net/2017/08/%E5%BC%80%E7%AF%87/">
-          开篇
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
-  
-    <time itemprop="datePublished" datetime="2017-08-09T23:04:39&#43;08:00">
-      
-  
-  
-  
-  
-    八月9日 · 2017年 
-  
-
-    </time>
-  
-  
-  
-  
-    <span>发布在</span>
-    
-      <a class="category-link" href="http://jasondong.net/categories/%e5%88%86%e7%b1%bb">分类</a>, 
-    
-      <a class="category-link" href="http://jasondong.net/categories/%e9%9a%8f%e6%89%8b%e4%b8%80%e5%86%99">随手一写</a>
-    
-  
-
-
-</div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        为什么写博客 作为中学时期，一个作文分数常年不足20分（60满分）的选手，写个博客其实对我来说就好像让张飞绣花一样难受。 但是还是下定决心要搞一个博客有事没事写一些东西，因为最近愈发的发现我的语言表达能力十分拙计。我觉得在与人交流或者沟通的时候，思维逻辑一定要清晰，逻辑清晰了，才能表达清晰。那怎样才能做到逻辑清晰呢？简单来说就是少说废话，列成条目，突出重点。但工作性质决定我每天都是在和机器打交道，每天和人说话基本也就数百字，所以准备通过没事写一些东西，提高一下自己的写作能力和表达能力。
-说来惭愧，写博客的想法几年前就有了，也断断续续写了一些，但一直没有坚持下来，我今年开始下定决心要持续写博客，当然作为一个码农，大部分应该都是关于技术方面的，偶尔会写一下自己的感悟或者读书笔记，算是自己给以后定的一个长期任务吧。
-就这几行字憋了二十分钟了，行了，第一篇就先这样。
-        <br>
-        <a href="http://jasondong.net/2017/08/%E5%BC%80%E7%AF%87/" class="postShorten-excerpt_link link">阅读全文</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-          
-
-        </section>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
     &copy; 2017 董子雄. All Rights Reserved

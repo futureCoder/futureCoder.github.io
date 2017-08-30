@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>技术文章 on JasonDong&#39;s BLOG</title>
-    <link>http://jasondong.net/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/</link>
-    <description>Recent content in 技术文章 on JasonDong&#39;s BLOG</description>
+    <title>Livere on JasonDong&#39;s BLOG</title>
+    <link>http://jasondong.net/tags/livere/</link>
+    <description>Recent content in Livere on JasonDong&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 30 Aug 2017 08:22:31 +0800</lastBuildDate>
     
-	<atom:link href="http://jasondong.net/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://jasondong.net/tags/livere/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -26,17 +26,6 @@ layout\partials\post\disqus.html 其实改无所谓，改只是为了显示起�
 &amp;lt;div id=&amp;quot;livere_thread&amp;quot;&amp;gt; &amp;lt;noscript&amp;gt;为正常使用来必力评论功能请激活JavaScript&amp;lt;/noscript&amp;gt; &amp;lt;/div&amp;gt;  layout\partials\post\actions.html 这里面的disqus_thread也改为livere_thread，不然链接不到。
 layout\partials\script.html 不好意思把重点放在了最后，这里才是加载LiveRe插件的脚本逻辑。 找到{{ if .Site.DisqusShortname }},可以看到原来这里是配置Disqus的安装代码,我们需要做的就是把Disqus的代码替换为LiveRe的安装代码。注意不要把&amp;lt;div id=&amp;quot;lv-container&amp;quot; data-id=&amp;quot;city&amp;quot; data-uid=&#39;{{ .Site.DisqusShortname }}&#39;&amp;gt;这行写在这里，不然界面布局会乱。改完后大概是这样
 {{ if .IsPage }} {{ if not (eq .Params.comments false) }} {{ if .</description>
-    </item>
-    
-    <item>
-      <title>C&#43;&#43;操作Redis实现异步订阅和发布</title>
-      <link>http://jasondong.net/2017/08/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Fri, 11 Aug 2017 13:05:21 +0800</pubDate>
-      
-      <guid>http://jasondong.net/2017/08/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83/</guid>
-      <description>安装redis，hiredis库 一、实验简介 Redis（Remote Dictionary Server） 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。 Redis 通常被称为数据结构服务器，因为值（value）可以是 字符串( String ), 哈希( Map ), 列表( list ), 集合( sets ) 和 有序集合( sorted sets )等类型。 它的性能极高，读写速度很快，有很丰富的数据类型，同时还支持对几个操作合并后的原子性执行， 还支持 publish / subscribe , 通知 key 过期等等特性。
-1.1 知识点  介绍 Redis 的基础知识 安装使用 Redis 安装 hiredis 库，并编写测试程序  1.2 效果截图 二、Redis 安装和运行 安装 Redis 可以选择源码安装，或者使用 apt-get 安装。 在环境里安装 Redis 可以使用以下命令：
-sudo apt-get update sudo apt-get install redis-server  启动 Redis</description>
     </item>
     
   </channel>
