@@ -321,15 +321,7 @@
                   Aug 8, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">Hugo内置了Disqus评论系统，Disqus虽然好用，但在大中华局域网下经常加载不出或者干脆不显示，多说也关了，准备用搜狐畅言,但注册信息时需要网站的备案号，否则只能用15天，无奈放弃。后来无意在电影天堂还是啥网站看到他评论系统还不错，查了一下，是韩国的牌子LiveRe(来必力)，于是小折腾一下。
-注册LiveRe 略过，将网站注册完成后到管理页面-代码管理中可以拿到一般网站的安装代码。里面有你的data-uid。
-更改tranquilpeak主题文件 tranquilpeak原声支持Disqus，通过在config.toml中设置disqusShortname的方式可以方便的使用Disqus。所以这里也不添加新的config字段了，直接将disqusShortname设置为LiveRe的data-uid。但这样就完了么？答案是naive。我们还需要将主题中Disqus的安装代码替换掉，下面给出需要替换的文件内容。
-layout_default\single.html 评论部分的分区是在&lt;div id=&quot;post-footer&quot;&gt;中，其中有一段代码
-{{ if not (eq .Params.comments false) }} {{ if .Site.DisqusShortname }} &lt;div id=&quot;lv-container&quot; data-id=&quot;city&quot; data-uid='{{ .Site.DisqusShortname }}'&gt; {{ partial &quot;post/disqus.html&quot; . }} &lt;/div&gt; {{ end }} {{ end }}  这里是LiveRe插件是否启用的判断逻辑，如果设置了disqusShortname且开启了评论功能，那么就会加载LiveRe，data-uid即是配置在config.toml中的disqusShortname字段。
-layout\partials\post\disqus.html 其实改无所谓，改只是为了显示起来更统一。
-&lt;div id=&quot;livere_thread&quot;&gt; &lt;noscript&gt;为正常使用来必力评论功能请激活JavaScript&lt;/noscript&gt; &lt;/div&gt;  layout\partials\post\actions.html 这里面的disqus_thread也改为livere_thread，不然链接不到。
-layout\partials\script.html 不好意思把重点放在了最后，这里才是加载LiveRe插件的脚本逻辑。 找到{{ if .Site.DisqusShortname }},可以看到原来这里是配置Disqus的安装代码,我们需要做的就是把Disqus的代码替换为LiveRe的安装代码。注意不要把&lt;div id=&quot;lv-container&quot; data-id=&quot;city&quot; data-uid='{{ .Site.DisqusShortname }}'&gt;这行写在这里，不然界面布局会乱。改完后大概是这样
-{{ if .IsPage }} {{ if not (eq .Params.comments false) }} {{ if .</div>
+              <div class="media-content hide-xs font-merryweather">Hugo内置了Disqus评论系统，Disqus虽然好用，但在大中华局域网下经常加载不出或者干脆不显示，多说也关了，准备用搜狐畅言,但注册信</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -346,8 +338,7 @@ layout\partials\script.html 不好意思把重点放在了最后，这里才是�
                   Aug 8, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">题目描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution  , and you may not use the same element twice. Example: Given nums = [2, 7, 11, 15], target = 9, Because nums[0] + nums[1] = 2 + 7 = 9, return [0, 1].
-思路 暂存目前已经遍历过的元素，在遍历剩余元素时判断 target-当前元素 是否已存在，如存在则返回。由于返回值是元素下标，同时需要暂存元素值，那么则需要一个map，键为元素值，值为元素下标。</div>
+              <div class="media-content hide-xs font-merryweather">题目描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution , and you may not use the same element twice. Example: Given nums = [2, 7, 11, 15], target = 9, Because nums[0] + nums[1] = 2 + 7 = 9, return [0, 1]. 思</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -364,9 +355,7 @@ layout\partials\script.html 不好意思把重点放在了最后，这里才是�
                   Aug 8, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">安装redis，hiredis库 一、实验简介 Redis（Remote Dictionary Server） 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。 Redis 通常被称为数据结构服务器，因为值（value）可以是 字符串( String ), 哈希( Map ), 列表( list ), 集合( sets ) 和 有序集合( sorted sets )等类型。 它的性能极高，读写速度很快，有很丰富的数据类型，同时还支持对几个操作合并后的原子性执行， 还支持 publish / subscribe , 通知 key 过期等等特性。
-1.1 知识点  介绍 Redis 的基础知识 安装使用 Redis 安装 hiredis 库，并编写测试程序  1.2 效果截图 二、Redis 安装和运行 安装 Redis 可以选择源码安装，或者使用 apt-get 安装。 在环境里安装 Redis 可以使用以下命令：
-sudo apt-get update sudo apt-get install redis-server  启动 Redis</div>
+              <div class="media-content hide-xs font-merryweather">安装redis，hiredis库 一、实验简介 Redis（Remote Dictionary Server） 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。 Redis 通常被称为数据结构服务器，</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -383,9 +372,7 @@ sudo apt-get update sudo apt-get install redis-server  启动 Redis</div>
                   Aug 8, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">为什么写博客 作为中学时期，一个作文分数常年不足20分（60满分）的选手，写个博客其实对我来说就好像让张飞绣花一样难受。 但是还是下定决心要搞一个博客有事没事写一些东西，因为最近愈发的发现我的语言表达能力十分拙计。我觉得在与人交流或者沟通的时候，思维逻辑一定要清晰，逻辑清晰了，才能表达清晰。那怎样才能做到逻辑清晰呢？简单来说就是少说废话，列成条目，突出重点。但工作性质决定我每天都是在和机器打交道，每天和人说话基本也就数百字，所以准备通过没事写一些东西，提高一下自己的写作能力和表达能力。
-说来惭愧，写博客的想法几年前就有了，也断断续续写了一些，但一直没有坚持下来，我今年开始下定决心要持续写博客，当然作为一个码农，大部分应该都是关于技术方面的，偶尔会写一下自己的感悟或者读书笔记，算是自己给以后定的一个长期任务吧。
-就这几行字憋了二十分钟了，行了，第一篇就先这样。</div>
+              <div class="media-content hide-xs font-merryweather">为什么写博客 作为中学时期，一个作文分数常年不足20分（60满分）的选手，写个博客其实对我来说就好像让张飞绣花一样难受。 但是还是下定决心要搞一</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
