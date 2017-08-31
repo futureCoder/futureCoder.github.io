@@ -276,9 +276,12 @@ return [0, 1].</p>
 
 <h4 id="思路">思路</h4>
 
-<p>暂存目前已经遍历过的元素，在遍历剩余元素时判断 target-当前元素 是否已存在，如存在则返回。由于返回值是元素下标，同时需要暂存元素值，那么则需要一个map，键为元素值，值为元素下标。</p>
+<p>暂存目前已经遍历过的元素，在遍历剩余元素时判断 target-当前元素 是否已存在，如存在则返回。由于返回值是元素下标，同时需要暂存元素值，那么则需要一个map，键为元素值，值为元素下标。<p>
+<div class="alert info ">
+  <p>复杂度：遍历一次的复杂度为O(n)，插入map的复杂度为O(log<sub>n</sub>)，总体的时间复杂度为O(log<sub>n</sub>)</p>
+</div></p>
 
-<h4 id="ac代码">AC代码</h4>
+<h6 id="ac代码">AC代码</h6>
 
 
   
@@ -668,7 +671,7 @@ std::tie(std::ignore,c) = p; // extract second value into c (ignore first one)
                   Aug 8, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">题目描述 Given a string, find the length of the longest substring without repeating characters. Examples: Given "abcabcbb", the answer is "abc", which the length is 3. Given "bbbbb", the answer is "b", with the length of 1. Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring. 思路 A</div>
+              <div class="media-content hide-xs font-merryweather">题目描述 Given a string, find the length of the longest substring without repeating characters. Examples: Given "abcabcbb", the answer is "abc", which the length is 3. Given "bbbbb", the answer is "b", with the length of 1. Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring. 思路 如</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
