@@ -12,20 +12,20 @@
     
     
     <item>
-      <title>LeetCode-003-LongestSubstringWithoutRepeatingCharacters解题报告</title>
-      <link>http://jasondong.net/2017/08/leetcode-003-longestsubstringwithoutrepeatingcharacters%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</link>
+      <title>LeetCode-003-Longest Substring Without Repeating Characters解题报告</title>
+      <link>http://jasondong.net/2017/08/leetcode-003-longest-substring-without-repeating-characters%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</link>
       <pubDate>Thu, 31 Aug 2017 13:09:14 +0800</pubDate>
       
-      <guid>http://jasondong.net/2017/08/leetcode-003-longestsubstringwithoutrepeatingcharacters%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</guid>
+      <guid>http://jasondong.net/2017/08/leetcode-003-longest-substring-without-repeating-characters%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</guid>
       <description>题目描述 Given a string, find the length of the longest substring without repeating characters. Examples: Given &#34;abcabcbb&#34;, the answer is &#34;abc&#34;, which the length is 3. Given &#34;bbbbb&#34;, the answer is &#34;b&#34;, with the length of 1. Given &#34;pwwkew&#34;, the answer is &#34;wke&#34;, with the length of 3. Note that the answer must be a substring, &#34;pwke&#34; is a subsequence and not a substring. 思路 如</description>
     </item>
     
     <item>
-      <title>LeetCode-002-AddTwoNumbers解题报告</title>
-      <link>http://jasondong.net/2017/08/leetcode-002-addtwonumbers%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</link>
+      <title>LeetCode-002-Add Two Numbers解题报告</title>
+      <link>http://jasondong.net/2017/08/leetcode-002-add-two-numbers%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</link>
       <pubDate>Wed, 30 Aug 2017 22:27:59 +0800</pubDate>
       
-      <guid>http://jasondong.net/2017/08/leetcode-002-addtwonumbers%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</guid>
+      <guid>http://jasondong.net/2017/08/leetcode-002-add-two-numbers%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</guid>
       <description>题目描述 You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list. You may assume the two numbers do not contain any leading zero, except the number 0 itself. Input: (2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt;</description>
     </item>
     
@@ -39,21 +39,12 @@
     </item>
     
     <item>
-      <title>LeetCode-001-TwoSum解题报告</title>
-      <link>http://jasondong.net/2017/08/leetcode-001-twosum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</link>
+      <title>LeetCode-001-Two Sum解题报告</title>
+      <link>http://jasondong.net/2017/08/leetcode-001-two-sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</link>
       <pubDate>Mon, 28 Aug 2017 16:33:57 +0800</pubDate>
       
-      <guid>http://jasondong.net/2017/08/leetcode-001-twosum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</guid>
+      <guid>http://jasondong.net/2017/08/leetcode-001-two-sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</guid>
       <description>题目描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution , and you may not use the same element twice. Example: Given nums = [2, 7, 11, 15], target = 9, Because nums[0] + nums[1] = 2 + 7 = 9, return [0, 1]. 思</description>
-    </item>
-    
-    <item>
-      <title>C&#43;&#43;操作Redis实现异步订阅和发布</title>
-      <link>http://jasondong.net/2017/08/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Fri, 11 Aug 2017 13:05:21 +0800</pubDate>
-      
-      <guid>http://jasondong.net/2017/08/c--%E6%93%8D%E4%BD%9Credis%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83/</guid>
-      <description>安装redis，hiredis库 一、实验简介 Redis（Remote Dictionary Server） 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。 Redis 通常被称为数据结构服务器，</description>
     </item>
     
     <item>

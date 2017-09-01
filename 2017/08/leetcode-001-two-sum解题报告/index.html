@@ -1,0 +1,835 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+
+  
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.25.1">
+    <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
+    <title>LeetCode-001-Two Sum解题报告</title>
+    <meta name="author" content="董子雄">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="http://jasondong.net/favicon.png">
+    
+
+    
+    <meta name="description" content="题目描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution , and you may not use the same element twice. Example: Given nums = [2, 7, 11, 15], target = 9, Because nums[0] &#43; nums[1] = 2 &#43; 7 = 9, return [0, 1]. 思">
+    <meta property="og:description" content="题目描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution , and you may not use the same element twice. Example: Given nums = [2, 7, 11, 15], target = 9, Because nums[0] &#43; nums[1] = 2 &#43; 7 = 9, return [0, 1]. 思">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="LeetCode-001-Two Sum解题报告">
+    <meta property="og:url" content="/2017/08/leetcode-001-two-sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
+    <meta property="og:site_name" content="JasonDong&#39;s BLOG">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JasonDong&#39;s BLOG">
+    <meta name="twitter:description" content="题目描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution , and you may not use the same element twice. Example: Given nums = [2, 7, 11, 15], target = 9, Because nums[0] &#43; nums[1] = 2 &#43; 7 = 9, return [0, 1]. 思">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//otnjj3xqi.bkt.clouddn.com/image/blog/avatarIcon/Bannie.jpg">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" />
+    
+    
+    <link rel="stylesheet" href="http://jasondong.net/css/style-u6mk0ojoywresbx8iepslrmmhl4stuhrsxuwhkpwrkrx7mryjcaimasnk4pi.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="http://jasondong.net/">JasonDong&#39;s BLOG</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="http://jasondong.net/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//otnjj3xqi.bkt.clouddn.com/image/blog/avatarIcon/Bannie.jpg" alt="作者的图片" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="http://jasondong.net/#about">
+          <img class="sidebar-profile-picture" src="//otnjj3xqi.bkt.clouddn.com/image/blog/avatarIcon/Bannie.jpg" alt="作者的图片" />
+        </a>
+        <h4 class="sidebar-profile-name">董子雄</h4>
+        
+          <h5 class="sidebar-profile-bio"><strong>努力工作 认真生活</strong></h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">首页</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">归档</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">分类</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">标签</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories/%E6%80%9D%E8%80%83%E6%84%9F%E6%82%9F">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">思考感悟</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">技术文章</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories/%E7%AE%97%E6%B3%95">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">算法</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">读书笔记</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories/%E9%9A%8F%E6%89%8B%E4%B8%80%E5%86%99">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">随手一写</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">关于</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+    </ul>
+    <ul class="sidebar-buttons">
+      
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      LeetCode-001-Two Sum解题报告
+    </h1>
+  
+  <div class="postShorten-meta post-meta">
+  
+    <time itemprop="datePublished" datetime="2017-08-28T16:33:57&#43;08:00">
+      
+  
+  
+  
+  
+    八月28日 · 2017年 
+  
+
+    </time>
+  
+  
+  
+  
+    <span>发布在</span>
+    
+      <a class="category-link" href="http://jasondong.net/categories/%e5%88%86%e7%b1%bb">分类</a>, 
+    
+      <a class="category-link" href="http://jasondong.net/categories/%e7%ae%97%e6%b3%95">算法</a>
+    
+  
+
+
+</div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+<h4 id="题目描述">题目描述</h4>
+
+<p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+You may assume that <span class="highlight-text cyan">each input would have exactly one solution </span> , and you may not use the same element twice.
+Example:
+Given nums = [2, 7, 11, 15], target = 9,
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].</p>
+
+<h4 id="思路">思路</h4>
+
+<p>暂存目前已经遍历过的元素，在遍历剩余元素时判断 target-当前元素 是否已存在，如存在则返回。由于返回值是元素下标，同时需要暂存元素值，那么则需要一个map，键为元素值，值为元素下标。<p>
+<div class="alert info ">
+  <p>复杂度：遍历一次的复杂度为O(n)，插入map的复杂度为O(log<sub>n</sub>)，总体的时间复杂度为O(log<sub>n</sub>)</p>
+</div></p>
+
+<h6 id="ac代码">AC代码</h6>
+
+
+  
+    
+  
+  
+  
+  
+
+
+<figure class="highlight ">
+  <figcaption>
+    
+      <span>TwoSum.cpp</span>
+    
+  </figcaption>
+  <table>
+    <tbody>
+      <tr>
+        <td class="gutter">
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre>
+        </td>
+        <td class="code">
+          <pre class=" code-highlight">
+class Solution {
+public:
+    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) {
+        std::map&lt;int, int&gt; neededNumMap;
+        std::vector&lt;int&gt; ret;
+        for(int i = 0; i &lt; nums.size(); &#43;&#43;i)
+        {
+            auto iter = neededNumMap.find(target - nums[i]);
+            if(iter == neededNumMap.end())
+            {
+                neededNumMap.insert(std::make_pair(nums[i], i));
+            }
+            else
+            {
+                ret.push_back(iter-&gt;second);
+                ret.push_back(i);
+                return ret;
+            }
+        }
+        return ret;
+    }
+};</pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+<h4 id="其他">其他</h4>
+
+<p>在提交时居然给了个编译错误: <span class="highlight-text red">no matching function for call to make_pair(__gnu_cxx::__alloc_traits >::value_type&, int&) </span>, 原因是之前的函数用错了： <code>std::make_pair&lt;int, int&gt;(nums[i], i)</code> ， 下面是C++标准库的用法：</p>
+
+<h5 id="convenience-function-make-pair">Convenience Function make_pair()</h5>
+
+<p>The <code>make_pair()</code> function template enables you to create a value pair without writing the types
+explicitly. For example, instead of</p>
+
+<pre><code class="language-C++">std::pair&lt;int,char&gt;(42,’@’)
+</code></pre>
+
+<p>you can write the following:</p>
+
+<pre><code class="language-C++">std::make_pair(42,’@’)
+</code></pre>
+
+<p>Before C++11, the function was simply declared and defined as follows:</p>
+
+<pre><code class="language-C++">namespace std {
+    // create value pair only by providing the values
+    template &lt;template T1, template T2&gt;
+    pair&lt;T1,T2&gt; make_pair (const T1&amp; x, const T2&amp; y) {
+        return pair&lt;T1,T2&gt;(x,y);
+    }
+}
+</code></pre>
+
+<p>However, since C++11, things have become more complicated because this class also deals with <span class="highlight-text cyan"> move semantics </span> in a useful way. So, since C++11, the C++ standard library states that <code>make_pair()</code> is declared as:</p>
+
+<pre><code class="language-C++">namespace std {
+    // create value pair only by providing the values
+    template &lt;template T1, template T2&gt;
+    pair&lt;V1,V2&gt; make_pair (T1&amp;&amp; x, T2&amp;&amp; y);
+}
+</code></pre>
+
+<p>where the details of the returned values and their types V1 and V2 depend on the types of x and y.
+Without going into details, the standard now specifies that <code>make_pair()</code> uses <span class="highlight-text cyan"> move semantics </span> if possible and copy semantics otherwise. In addition, it “decays” the arguments so that the expression <code>make_pair(&quot;a&quot;,&quot;xy&quot;)</code> yields a pair<const char*,const char*> instead of a <code>pair&lt;const char[2],const char[3]&gt;</code>.
+The make_pair() function makes it convenient to pass two values of a pair directly to a function that requires a pair as its argument. Consider the following example:</p>
+
+<pre><code class="language-C++">void f(std::pair&lt;int,const char*&gt;);
+void g(std::pair&lt;const int,std::string&gt;);
+</code></pre>
+
+<p>As the example shows, make_pair() works even when the types do not match exactly, because the template constructor provides implicit type conversion. When you program by using maps or multimaps, you often need this ability. Note that since C++11, you can, alternatively, use initializer lists:</p>
+
+<pre><code class="language-C++">f({42,&quot;empty&quot;}); // pass two values as pair
+g({42,&quot;chair&quot;}); // pass two values as pair with type conversions
+</code></pre>
+
+<p>However, an expression that has the explicit type description has an advantage because the resulting type of the pair is not derived from the values. For example, the expression <code>std::pair&lt;int,float&gt;(42,7.77)</code> does not yield the same as <code>std::make_pair(42,7.77)</code>
+The latter creates a pair that has double as the type for the second value (unqualified floating literals have type double). The exact type may be important when overloaded functions or templates are used. These functions or templates might, for example, provide versions for both float and double to improve efficiency.
+With the new semantic of C++11, you can influence the type make_pair() yields by forcing either <span class="highlight-text cyan"> move or reference semantics </span>. For <span class="highlight-text cyan"> move semantics </span>, you simply use <code>std::move()</code> to declare
+that the passed argument is no longer used:</p>
+
+<pre><code class="language-C++">std::string s, t;
+...
+auto p = std::make_pair(std::move(s),std::move(t));
+... // s and t are no longer used
+</code></pre>
+
+<p>To force reference semantics, you have to use ref(), which forces a reference type, or <code>cref()</code>, which forces a constant reference type (both provided by <functional>
+For example, in the following statements, a pair refers to an int twice so that, finally, i has the value 2:</p>
+
+<pre><code class="language-C++">#include &lt;utility&gt;
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+int i = 0;
+auto p = std::make_pair(std::ref(i),std::ref(i)); // creates pair&lt;int&amp;,int&amp;&gt;
+++p.first; // increments i
+++p.second; // increments i again
+std::cout &lt;&lt; &quot;i: &quot; &lt;&lt; i &lt;&lt; std::endl; // prints i: 2
+</code></pre>
+
+<p>Since C++11, you can also use the tie() interface, defined in <tuple>, to extract values out of a pair:</p>
+
+<pre><code class="language-C++">#include &lt;utility&gt;
+#include &lt;tuple&gt;
+#include &lt;iostream&gt;
+std::pair&lt;char,char&gt; p=std::make_pair(’x’,’y’); // pair of two chars
+char c;
+std::tie(std::ignore,c) = p; // extract second value into c (ignore first one)
+</code></pre>
+
+<p>In fact, here the pair p is assigned to a tuple, where the second value is a reference to c.</p>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">标签</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="http://jasondong.net//tags/c&#43;&#43;/">C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="http://jasondong.net//tags/leetcode/">LeetCode</a>
+
+  <a class="tag tag--primary tag--small" href="http://jasondong.net//tags/map/">map</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/08/hugo%E5%8D%9A%E5%AE%A2tranquilpeak%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8livere%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" data-tooltip="Hugo博客tranquilpeak主题使用LiveRe评论系统">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/08/%E5%BC%80%E7%AF%87/" data-tooltip="开篇">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f08%2fleetcode-001-two-sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f08%2fleetcode-001-two-sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f08%2fleetcode-001-two-sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#livere_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+            
+              
+              <div id="lv-container" data-id="city" data-uid='MTAyMC8zMDI3OC82ODMz'>
+                <div id="livere_thread">
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+              </div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2017 董子雄. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/08/hugo%E5%8D%9A%E5%AE%A2tranquilpeak%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8livere%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" data-tooltip="Hugo博客tranquilpeak主题使用LiveRe评论系统">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/08/%E5%BC%80%E7%AF%87/" data-tooltip="开篇">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f08%2fleetcode-001-two-sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f08%2fleetcode-001-two-sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f08%2fleetcode-001-two-sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#livere_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="2">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f08%2fleetcode-001-two-sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+        <i class="fa fa-google-plus"></i><span>分享到 Google&#43;</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f08%2fleetcode-001-two-sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+        <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f08%2fleetcode-001-two-sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+        <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//otnjj3xqi.bkt.clouddn.com/image/blog/avatarIcon/Bannie.jpg" alt="作者的图片" />
+    
+    <h4 id="about-card-name">董子雄</h4>
+    
+      <div id="about-card-bio"><strong>努力工作 认真生活</strong></div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        尘世迷途小码农
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        中国·帝都
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="搜索" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center"></div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/2017/08/leetcode-003-longest-substring-without-repeating-characters%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
+                <h3 class="media-heading">LeetCode-003-Longest Substring Without Repeating Characters解题报告</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">题目描述 Given a string, find the length of the longest substring without repeating characters. Examples: Given "abcabcbb", the answer is "abc", which the length is 3. Given "bbbbb", the answer is "b", with the length of 1. Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring. 思路 如</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/2017/08/leetcode-002-add-two-numbers%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
+                <h3 class="media-heading">LeetCode-002-Add Two Numbers解题报告</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">题目描述 You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list. You may assume the two numbers do not contain any leading zero, except the number 0 itself. Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt;</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/2017/08/hugo%E5%8D%9A%E5%AE%A2tranquilpeak%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8livere%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/">
+                <h3 class="media-heading">Hugo博客tranquilpeak主题使用LiveRe评论系统</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Hugo内置了Disqus评论系统，Disqus虽然好用，但在大中华局域网下经常加载不出或者干脆不显示，多说也关了，准备用搜狐畅言,但注册信</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/2017/08/leetcode-001-two-sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
+                <h3 class="media-heading">LeetCode-001-Two Sum解题报告</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">题目描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution , and you may not use the same element twice. Example: Given nums = [2, 7, 11, 15], target = 9, Because nums[0] + nums[1] = 2 + 7 = 9, return [0, 1]. 思</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/2017/08/%E5%BC%80%E7%AF%87/">
+                <h3 class="media-heading">开篇</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">为什么写博客 作为中学时期，一个作文分数常年不足20分（60满分）的选手，写个博客其实对我来说就好像让张飞绣花一样难受。 但是还是下定决心要搞一</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/post/">
+                <h3 class="media-heading">Posts</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero=""
+         data-message-one=""
+         data-message-other="">
+         6 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://jasondong.net/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="//ovg5ihjel.bkt.clouddn.com/code/blog/theme/scriptHtml/jquery.min.js"></script>
+<script src="//ovg5ihjel.bkt.clouddn.com/code/blog/theme/scriptHtml/highlight.min.js"></script>
+<script src="//ovg5ihjel.bkt.clouddn.com/code/blog/theme/scriptHtml/jquery.fancybox.min.js"></script>
+<script src="//ovg5ihjel.bkt.clouddn.com/code/blog/theme/scriptHtml/jquery.fancybox-thumbs.min.js"></script>
+
+
+<script src="http://jasondong.net/js/script-wl33z0n6ocaypepiqrazthtivfrliqijej4rq8ek8gvrv1awftmgjuv8k4zc.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight').each(function(i, block) {
+    var code = "";
+    hljs.highlightAuto(block.innerText).value.split(/\r\n|\r|\n/).forEach(function(line) {
+      code += "<span class=\"line\">" + line + "</span><br>";
+    });
+    if (code.length > 0) {
+      block.innerHTML = code;  
+    }
+  });
+  $('pre > code').each(function(i, block) {
+    $(this).addClass('codeblock');
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+  
+    
+      <script type="text/javascript">
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+            if (typeof LivereTower === 'function') { return; }
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+  
+
+
+
+
+
+    
+  </body>
+</html>
+
