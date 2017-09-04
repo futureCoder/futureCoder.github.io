@@ -55,6 +55,18 @@
   </url>
   
   <url>
+    <loc>http://jasondong.net/tags/greedy/</loc>
+    <lastmod>2017-08-31T13:09:14+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jasondong.net/tags/hash/</loc>
+    <lastmod>2017-08-31T13:09:14+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://jasondong.net/tags/hugo/</loc>
     <lastmod>2017-08-30T08:22:31+08:00</lastmod>
     <priority>0</priority>
@@ -74,7 +86,7 @@
   
   <url>
     <loc>http://jasondong.net/tags/linkedlist/</loc>
-    <lastmod>2017-08-31T13:09:14+08:00</lastmod>
+    <lastmod>2017-08-30T22:27:59+08:00</lastmod>
     <priority>0</priority>
   </url>
   
