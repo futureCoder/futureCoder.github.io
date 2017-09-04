@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Binary Search on JasonDong&#39;s BLOG</title>
+    <link>http://jasondong.net/tags/binary-search/</link>
+    <description>Recent content in Binary Search on JasonDong&#39;s BLOG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 04 Sep 2017 20:43:06 +0800</lastBuildDate>
+    
+	<atom:link href="http://jasondong.net/tags/binary-search/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LeetCode-004-Median of Two Sorted Arrays解题报告</title>
+      <link>http://jasondong.net/2017/09/leetcode-004-median-of-two-sorted-arrays%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</link>
+      <pubDate>Mon, 04 Sep 2017 20:43:06 +0800</pubDate>
+      
+      <guid>http://jasondong.net/2017/09/leetcode-004-median-of-two-sorted-arrays%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</guid>
+      <description>题目描述 There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)). Example 1: nums1 = [1, 3] nums2 = [2] The median is 2.0 Example 2: nums1 = [1, 2] nums2 = [3, 4] The median is (2 + 3)/2 = 2.5 思路 AC</description>
+    </item>
+    
+  </channel>
+</rss>
