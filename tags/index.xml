@@ -59,7 +59,7 @@
     <item>
       <title>Leetcode</title>
       <link>http://jasondong.net/tags/leetcode/</link>
-      <pubDate>Mon, 04 Sep 2017 20:43:06 +0800</pubDate>
+      <pubDate>Tue, 05 Sep 2017 18:55:22 +0800</pubDate>
       
       <guid>http://jasondong.net/tags/leetcode/</guid>
       <description></description>
@@ -84,11 +84,38 @@
     </item>
     
     <item>
+      <title>Manacher Algorithm</title>
+      <link>http://jasondong.net/tags/manacher-algorithm/</link>
+      <pubDate>Tue, 05 Sep 2017 18:55:22 +0800</pubDate>
+      
+      <guid>http://jasondong.net/tags/manacher-algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Map</title>
       <link>http://jasondong.net/tags/map/</link>
       <pubDate>Mon, 28 Aug 2017 16:33:57 +0800</pubDate>
       
       <guid>http://jasondong.net/tags/map/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Palindromic</title>
+      <link>http://jasondong.net/tags/palindromic/</link>
+      <pubDate>Tue, 05 Sep 2017 18:55:22 +0800</pubDate>
+      
+      <guid>http://jasondong.net/tags/palindromic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>String</title>
+      <link>http://jasondong.net/tags/string/</link>
+      <pubDate>Tue, 05 Sep 2017 18:55:22 +0800</pubDate>
+      
+      <guid>http://jasondong.net/tags/string/</guid>
       <description></description>
     </item>
     

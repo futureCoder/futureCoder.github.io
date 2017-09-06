@@ -308,42 +308,39 @@ The median is (2 + 3)/2 = 2.5
     <tbody>
       <tr>
         <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre>
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre>
         </td>
         <td class="code">
           <pre class=" code-highlight">
-class Solution {
-public:
-    double findMedianSortedArrays(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        int len1 = nums1.size(), len2 = nums2.size();
-        int k = (len1 &#43; len2) / 2 &#43; 1;
-        if((len1 &#43; len2) &amp; 0x1)
-            return find_Kth_InSortedArrays(nums1.begin(), nums2.begin(), len1, len2, k);
-        else
-            return ( find_Kth_InSortedArrays(nums1.begin(), nums2.begin(), len1, len2, k - 1) 
-                   &#43; find_Kth_InSortedArrays(nums1.begin(), nums2.begin(), len1, len2, k ) ) / 2.0;
-    }
+double findMedianSortedArrays(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+    int len1 = nums1.size(), len2 = nums2.size();
+    int k = (len1 &#43; len2) / 2 &#43; 1;
+    if((len1 &#43; len2) &amp; 0x1)
+        return find_Kth_InSortedArrays(nums1.begin(), nums2.begin(), len1, len2, k);
+    else
+        return ( find_Kth_InSortedArrays(nums1.begin(), nums2.begin(), len1, len2, k - 1) 
+                &#43; find_Kth_InSortedArrays(nums1.begin(), nums2.begin(), len1, len2, k ) ) / 2.0;
+}
 
-    int find_Kth_InSortedArrays(vector&lt;int&gt;::const_iterator pLeft, vector&lt;int&gt;::const_iterator pRight, int lLen, int rLen, int k)
-    {
-        if(k &lt; 1 || k &gt; lLen &#43; rLen)
-            return -1;
-        if(lLen &gt; rLen)
-            return find_Kth_InSortedArrays(pRight, pLeft, rLen, lLen, k);
-        if(0 == lLen)
-            return *(pRight &#43; k - 1);
-        if(1 == k)
-            return std::min(*pLeft, *pRight);
-        int lMid = std::min(k &gt;&gt; 1, lLen);
-        int rMid = k - lMid;
-        if(*(pLeft &#43; lMid - 1) == *(pRight &#43; rMid - 1))
-            return *(pLeft &#43; lMid - 1);
-        else if(*(pLeft &#43; lMid - 1) &lt; *(pRight &#43; rMid - 1))
-            return find_Kth_InSortedArrays(pLeft &#43; lMid, pRight, lLen - lMid, rLen, k - lMid);
-        else 
-            return find_Kth_InSortedArrays(pLeft, pRight &#43; rMid, lLen, rLen - rMid, k - rMid);
-    }
-};</pre>
+int find_Kth_InSortedArrays(vector&lt;int&gt;::const_iterator pLeft, vector&lt;int&gt;::const_iterator pRight, int lLen, int rLen, int k)
+{
+    if(k &lt; 1 || k &gt; lLen &#43; rLen)
+        return -1;
+    if(lLen &gt; rLen)
+        return find_Kth_InSortedArrays(pRight, pLeft, rLen, lLen, k);
+    if(0 == lLen)
+        return *(pRight &#43; k - 1);
+    if(1 == k)
+        return std::min(*pLeft, *pRight);
+    int lMid = std::min(k &gt;&gt; 1, lLen);
+    int rMid = k - lMid;
+    if(*(pLeft &#43; lMid - 1) == *(pRight &#43; rMid - 1))
+        return *(pLeft &#43; lMid - 1);
+    else if(*(pLeft &#43; lMid - 1) &lt; *(pRight &#43; rMid - 1))
+        return find_Kth_InSortedArrays(pLeft &#43; lMid, pRight, lLen - lMid, rLen, k - lMid);
+    else 
+        return find_Kth_InSortedArrays(pLeft, pRight &#43; rMid, lLen, rLen - rMid, k - rMid);
+}</pre>
         </td>
       </tr>
     </tbody>
@@ -375,7 +372,7 @@ public:
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/09/leetcode-005-longest-palindromic-substring%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" data-tooltip="LeetCode-005-Longest Palindromic Substring解题报告">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
@@ -458,7 +455,7 @@ public:
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/09/leetcode-005-longest-palindromic-substring%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" data-tooltip="LeetCode-005-Longest Palindromic Substring解题报告">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
@@ -590,6 +587,23 @@ public:
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/2017/09/leetcode-005-longest-palindromic-substring%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
+                <h3 class="media-heading">LeetCode-005-Longest Palindromic Substring解题报告</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">题目描述 Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000. Example: Input: &quot;babad&quot; Output: &quot;bab&quot; Note: &quot;aba&quot; is also a valid answer. Example: Input: &quot;cbbd&quot; Output: &quot;bb&quot; 思路 Manacher(马拉车)算法，详细后续更新，先上</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="http://jasondong.net/2017/09/leetcode-004-median-of-two-sorted-arrays%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
                 <h3 class="media-heading">LeetCode-004-Median of Two Sorted Arrays解题报告</h3>
               </a>
@@ -713,7 +727,7 @@ public:
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         7 posts found
+         8 posts found
       </p>
     </div>
   </div>

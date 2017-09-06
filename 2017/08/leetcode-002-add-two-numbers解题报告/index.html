@@ -302,52 +302,49 @@ You may assume the two numbers do not contain any leading zero, except the numbe
     <tbody>
       <tr>
         <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre>
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre>
         </td>
         <td class="code">
           <pre class=" code-highlight">
-class Solution {
-public:
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        if(nullptr == l1)
-            return l2;
-        if(nullptr == l2)
-            return l1;
-        ListNode *ret = l1, *pre1;
-        ListNode *pre2;     //防止函数返回后，析构 l2 时出问题
-        int cf = 0;
-        while(l1 &amp;&amp; l2)
-        {
-            l1-&gt;val &#43;= l2-&gt;val &#43; cf;
-            cf = l1-&gt;val / 10;
-            l1-&gt;val %= 10;
-            pre1 = l1;
-            pre2 = l2;
-            l1 = l1-&gt;next;
-            l2 = l2-&gt;next;
-        }
-        if(nullptr == l1)
-        {
-            pre1-&gt;next = l2;
-            pre2-&gt;next = nullptr;   //pre2的作用到此为止
-            l1 = l2;
-        }
-        while(l1 &amp;&amp; cf)
-        {
-            l1-&gt;val &#43;= cf;
-            cf = l1-&gt;val / 10;
-            l1-&gt;val %= 10;
-            pre1 = l1;
-            l1 = l1-&gt;next;
-        }
-        if(cf)
-        {
-            ListNode* newNode = new ListNode(cf);
-            pre1-&gt;next = newNode;
-        }
-        return ret;
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    if(nullptr == l1)
+        return l2;
+    if(nullptr == l2)
+        return l1;
+    ListNode *ret = l1, *pre1;
+    ListNode *pre2;     //防止函数返回后，析构 l2 时出问题
+    int cf = 0;
+    while(l1 &amp;&amp; l2)
+    {
+        l1-&gt;val &#43;= l2-&gt;val &#43; cf;
+        cf = l1-&gt;val / 10;
+        l1-&gt;val %= 10;
+        pre1 = l1;
+        pre2 = l2;
+        l1 = l1-&gt;next;
+        l2 = l2-&gt;next;
     }
-};</pre>
+    if(nullptr == l1)
+    {
+        pre1-&gt;next = l2;
+        pre2-&gt;next = nullptr;   //pre2的作用到此为止
+        l1 = l2;
+    }
+    while(l1 &amp;&amp; cf)
+    {
+        l1-&gt;val &#43;= cf;
+        cf = l1-&gt;val / 10;
+        l1-&gt;val %= 10;
+        pre1 = l1;
+        l1 = l1-&gt;next;
+    }
+    if(cf)
+    {
+        ListNode* newNode = new ListNode(cf);
+        pre1-&gt;next = newNode;
+    }
+    return ret;
+}</pre>
         </td>
       </tr>
     </tbody>
@@ -380,47 +377,44 @@ public:
     <tbody>
       <tr>
         <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre>
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre>
         </td>
         <td class="code">
           <pre class=" code-highlight">
-class Solution {
-public:
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        if(nullptr == l1)
-            return l2;
-        if(nullptr == l2)
-            return l1;
-        ListNode *ret = l1, **ppL1 = &amp;l1, **ppL2 = &amp;l2;
-        int cf = 0;
-        while( *ppL1 &amp;&amp; *ppL2 )
-        {
-            (*ppL1)-&gt;val &#43;= (*ppL2)-&gt;val &#43; cf;
-            cf = (*ppL1)-&gt;val / 10;
-            (*ppL1)-&gt;val %= 10;
-            ppL1 = &amp;((*ppL1)-&gt;next);
-            ppL2 = &amp;((*ppL2)-&gt;next);
-        }
-        if(nullptr == *ppL1)
-        {
-            *ppL1 = *ppL2;
-            *ppL2 = nullptr;
-        }
-        while(*ppL1 &amp;&amp; cf)
-        {
-            (*ppL1)-&gt;val &#43;= cf;
-            cf = (*ppL1)-&gt;val / 10;
-            (*ppL1)-&gt;val %= 10;
-            ppL1 = &amp;((*ppL1)-&gt;next);
-        }
-        if(cf)
-        {
-            ListNode* newNode = new ListNode(cf);
-            *ppL1 = newNode;
-        }
-        return ret;
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    if(nullptr == l1)
+        return l2;
+    if(nullptr == l2)
+        return l1;
+    ListNode *ret = l1, **ppL1 = &amp;l1, **ppL2 = &amp;l2;
+    int cf = 0;
+    while( *ppL1 &amp;&amp; *ppL2 )
+    {
+        (*ppL1)-&gt;val &#43;= (*ppL2)-&gt;val &#43; cf;
+        cf = (*ppL1)-&gt;val / 10;
+        (*ppL1)-&gt;val %= 10;
+        ppL1 = &amp;((*ppL1)-&gt;next);
+        ppL2 = &amp;((*ppL2)-&gt;next);
     }
-};</pre>
+    if(nullptr == *ppL1)
+    {
+        *ppL1 = *ppL2;
+        *ppL2 = nullptr;
+    }
+    while(*ppL1 &amp;&amp; cf)
+    {
+        (*ppL1)-&gt;val &#43;= cf;
+        cf = (*ppL1)-&gt;val / 10;
+        (*ppL1)-&gt;val %= 10;
+        ppL1 = &amp;((*ppL1)-&gt;next);
+    }
+    if(cf)
+    {
+        ListNode* newNode = new ListNode(cf);
+        *ppL1 = newNode;
+    }
+    return ret;
+}</pre>
         </td>
       </tr>
     </tbody>
@@ -667,6 +661,23 @@ public:
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/2017/09/leetcode-005-longest-palindromic-substring%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
+                <h3 class="media-heading">LeetCode-005-Longest Palindromic Substring解题报告</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">题目描述 Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000. Example: Input: &quot;babad&quot; Output: &quot;bab&quot; Note: &quot;aba&quot; is also a valid answer. Example: Input: &quot;cbbd&quot; Output: &quot;bb&quot; 思路 Manacher(马拉车)算法，详细后续更新，先上</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="http://jasondong.net/2017/09/leetcode-004-median-of-two-sorted-arrays%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
                 <h3 class="media-heading">LeetCode-004-Median of Two Sorted Arrays解题报告</h3>
               </a>
@@ -790,7 +801,7 @@ public:
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         7 posts found
+         8 posts found
       </p>
     </div>
   </div>
