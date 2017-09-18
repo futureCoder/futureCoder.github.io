@@ -6,10 +6,19 @@
     <description>Recent content in 算法 on JasonDong&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 05 Sep 2017 18:55:22 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 18 Sep 2017 13:35:57 +0800</lastBuildDate>
     
 	<atom:link href="http://jasondong.net/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode-015-3Sum解题报告</title>
+      <link>http://jasondong.net/2017/09/leetcode-015-3sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</link>
+      <pubDate>Mon, 18 Sep 2017 13:35:57 +0800</pubDate>
+      
+      <guid>http://jasondong.net/2017/09/leetcode-015-3sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</guid>
+      <description>题目描述 Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero. Note: The solution set must not contain duplicate triplets. For example, given array S = [-1, 0, 1, 2, -1, -4], A solution set is: [ [-1, 0, 1],</description>
+    </item>
     
     <item>
       <title>LeetCode-005-Longest Palindromic Substring解题报告</title>
