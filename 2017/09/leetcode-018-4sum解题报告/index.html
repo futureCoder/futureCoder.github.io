@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.25.1">
     <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
-    <title>LeetCode-004-Median of Two Sorted Arrays解题报告</title>
+    <title>LeetCode-018-4Sum解题报告</title>
     <meta name="author" content="董子雄">
     <meta name="keywords" content="">
 
@@ -29,15 +29,15 @@
     
 
     
-    <meta name="description" content="题目描述 There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log (m&#43;n)). Example 1: nums1 = [1, 3] nums2 = [2] The median is 2.0 Example 2: nums1 = [1, 2] nums2 = [3, 4] The median is (2 &#43; 3)/2 = 2.5 思路 首先">
-    <meta property="og:description" content="题目描述 There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log (m&#43;n)). Example 1: nums1 = [1, 3] nums2 = [2] The median is 2.0 Example 2: nums1 = [1, 2] nums2 = [3, 4] The median is (2 &#43; 3)/2 = 2.5 思路 首先">
+    <meta name="description" content="题目描述 Given an array S of n integers, are there elements a, b, c, and d in S such that a &#43; b &#43; c &#43; d = target? Find all unique quadruplets in the array which gives the sum of target. Note: The solution set must not contain duplicate quadruplets. For example, given array S = [1, 0, -1, 0, -2, 2], and target = 0.">
+    <meta property="og:description" content="题目描述 Given an array S of n integers, are there elements a, b, c, and d in S such that a &#43; b &#43; c &#43; d = target? Find all unique quadruplets in the array which gives the sum of target. Note: The solution set must not contain duplicate quadruplets. For example, given array S = [1, 0, -1, 0, -2, 2], and target = 0.">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="LeetCode-004-Median of Two Sorted Arrays解题报告">
-    <meta property="og:url" content="/2017/09/leetcode-004-median-of-two-sorted-arrays%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
+    <meta property="og:title" content="LeetCode-018-4Sum解题报告">
+    <meta property="og:url" content="/2017/09/leetcode-018-4sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
     <meta property="og:site_name" content="JasonDong&#39;s BLOG">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="JasonDong&#39;s BLOG">
-    <meta name="twitter:description" content="题目描述 There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log (m&#43;n)). Example 1: nums1 = [1, 3] nums2 = [2] The median is 2.0 Example 2: nums1 = [1, 2] nums2 = [3, 4] The median is (2 &#43; 3)/2 = 2.5 思路 首先">
+    <meta name="twitter:description" content="题目描述 Given an array S of n integers, are there elements a, b, c, and d in S such that a &#43; b &#43; c &#43; d = target? Find all unique quadruplets in the array which gives the sum of target. Note: The solution set must not contain duplicate quadruplets. For example, given array S = [1, 0, -1, 0, -2, 2], and target = 0.">
     
     
 
@@ -229,18 +229,18 @@
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      LeetCode-004-Median of Two Sorted Arrays解题报告
+      LeetCode-018-4Sum解题报告
     </h1>
   
   <div class="postShorten-meta post-meta">
   
-    <time itemprop="datePublished" datetime="2017-09-04T20:43:06&#43;08:00">
+    <time itemprop="datePublished" datetime="2017-09-27T10:19:38&#43;08:00">
       
   
   
   
   
-    九月4日 · 2017年 
+    九月27日 · 2017年 
   
 
     </time>
@@ -268,97 +268,24 @@
 <h4 id="题目描述">题目描述</h4>
 
 <blockquote>
-<p><p>There are two sorted arrays <strong>nums1</strong> and <strong>nums2</strong> of size m and n respectively.
-Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
-<strong>Example 1:</strong></p>
+<p>Given an array <strong>S</strong> of <em>n</em> <strong>integers</strong>, are there elements a, b, c, and d in <strong>S</strong> such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.<br>
+<p><strong>Note:</strong> The solution set must not contain duplicate quadruplets.</p>
+For example, given array S = [1, 0, -1, 0, -2, 2], and target = 0.<br>
+A solution set is:</p>
 
-<pre><code>nums1 = [1, 3]
-nums2 = [2]
-The median is 2.0
-</code></pre>
-
-<p><strong>Example 2:</strong></p>
-
-<pre><code>nums1 = [1, 2]
-nums2 = [3, 4]
-The median is (2 + 3)/2 = 2.5
+<pre><code>[
+  [-1,  0, 0, 1],
+  [-2, -1, 1, 2],
+  [-2,  0, 0, 2]
+]
 </code></pre>
 </blockquote>
 
 <h4 id="思路">思路</h4>
 
-<p>首先划重点，<span class="highlight-text cyan"> 两数组有序 </span>、<span class="highlight-text orange"> 复杂度须为O(log (m+n)) </span>。刚看到题时，第一反应是将两数组合并为一个，然后排序取中位数，这样方法由于有排序存在，最低复杂度在(m+n)O(log (m+n))级别；或是不用合并排序，遍历两个数组同时数数，也可以取到中位数，复杂度是O(m+n)级别。但此题要求基本O(log (m+n))，也就是限制了这两种解法。而这时如果注意到<span class="highlight-text cyan"> 数组有序 </span>的条件，再加上<span class="highlight-text orange"> log </span>级别的时间复杂度，很容易想到<strong>二分法（二分查找）</strong>。常规的<strong>二分法</strong>是在单个有序数组上实现的，但思想是通用的，这题最终也是用<strong>二分法</strong>的思想AC的，下面在详细介绍思路之前，首先复习一下<strong>二分法及其思想</strong>。
-<blockquote>
-  <p>
-在计算机科学中，二分搜索（英语：binary search），也称折半搜索（英语：half-interval search）、对数搜索（英语：logarithmic search），是一种在有序数组中查找某一特定元素的搜索算法。搜索过程从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜索过程结束；如果某一特定元素大于或者小于中间元素，则在数组大于或小于中间元素的那一半中查找，而且跟开始一样从中间元素开始比较。如果在某一步骤数组为空，则代表找不到。
-</p>
-  <footer>
-    <strong>维基百科</strong>
-    
-      <cite><a href="//zh.wikipedia.org/wiki/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95" target="_blank" rel="external">二分搜索算法</a></cite>
-    
-  </footer>
-</blockquote></p>
+<p>同 3Sum 。</p>
 
-<p>这种搜索算法每一次比较都使搜索范围缩小一半，以这个数组建立一个平衡二叉树，则在数组中的查找过程其实是和平衡二叉树中的查找过程是等价的。最坏情况下，查找的复杂度就是平衡二叉树的树高O(log n)。</p>
-
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th>说明</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td align="center">数据结构</td>
-<td>数组（有序）</td>
-</tr>
-
-<tr>
-<td align="center">最坏时间复杂度</td>
-<td>O(log n)</td>
-</tr>
-
-<tr>
-<td align="center">最优时间复杂度</td>
-<td>O(1)</td>
-</tr>
-
-<tr>
-<td align="center">平均时间复杂度</td>
-<td>O(log n)</td>
-</tr>
-
-<tr>
-<td align="center">迭代空间复杂度</td>
-<td>O(1)</td>
-</tr>
-
-<tr>
-<td align="center">递归空间复杂度</td>
-<td>O(log n)</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-<div class="figure figure--fullWidth">
-  <img class="figure-img" src="http://otnjj3xqi.bkt.clouddn.com/image/blog/LeetCode-004-MedianOfTwoSortedArraysBinary_search_into_array.png" alt="二分查找" /><span class="caption">二分查找</span>
-</div>
-<div class="main-content-wrap">
-
-<p>回来说这题，这题其实可以转化为查找第k大的数，中位数只是一个特定的k。下面说如何在双数组中查找第k大的数。
-二分法是一次删除掉当前搜索范围的一半，这一半是一定不会包含目标元素的。利用这个思想来看如何在双数组中查找第k大的数，首先我们假设给定数组A和B的元素个数都大于k/2，于是我们将A的第k/2个元素和B的第k/2个元素进行比较，会有以下三种情况：<br><br>
-<code>A[k/2 - 1] == B[k/2 - 1]</code><br>
-<code>A[k/2 - 1] &lt; B[k/2 - 1]</code><br>
-<code>A[k/2 - 1] &gt; B[k/2 - 1]</code><br><br>
-当<code>A[k/2-1] == B[k/2-1]</code>时，表示已经找到了<code>A ∪ B</code>中第K大的数，直接返回；<br><br>
-当<code>A[k/2-1] &lt;  B[k/2-1]</code>时，表示A[k/2-1]不可能大于<code>A ∪ B</code>中第K大的数，那么由于数组有序，A[0]到A[k/2-1]这个范围的数都不可能大于<code>A ∪ B</code>中第K大的数，删除这个搜索范围，继续在剩余的搜索范围A[k/2]到A[end]和B中进行搜索。<br><br>
-<code>A[k/2-1]  &gt; B[k/2-1]</code>同理。<br></p>
-
-<h6 id="ac代码-version-1">AC代码 Version.1</h6>
+<h6 id="ac代码">AC代码</h6>
 
 
   
@@ -372,103 +299,55 @@ The median is (2 + 3)/2 = 2.5
 <figure class="highlight ">
   <figcaption>
     
-      <span>findMedianSortedArrays.cpp</span>
+      <span>4Sum.cpp</span>
     
   </figcaption>
   <table>
     <tbody>
       <tr>
         <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre>
+          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre>
         </td>
         <td class="code">
           <pre class=" code-highlight">
-double findMedianSortedArrays(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-    int len1 = nums1.size(), len2 = nums2.size();
-    int k = (len1 &#43; len2) / 2 &#43; 1;
-    if((len1 &#43; len2) &amp; 0x1)
-        return find_Kth_InSortedArrays(nums1.begin(), nums2.begin(), len1, len2, k);
-    else
-        return ( find_Kth_InSortedArrays(nums1.begin(), nums2.begin(), len1, len2, k - 1) 
-                &#43; find_Kth_InSortedArrays(nums1.begin(), nums2.begin(), len1, len2, k ) ) / 2.0;
-}
+    vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt;&amp; nums, int target) {
+        vector&lt;vector&lt;int&gt;&gt; ret;
+        if (nums.size() &lt; 4)
+            return ret;
+        sort(nums.begin(), nums.end());
+        auto end = nums.end();
+        for(auto i = nums.begin(); i &lt; end - 3; &#43;&#43;i)
+        {
+            while(i != nums.begin() &amp;&amp; i &lt; end - 3 &amp;&amp; *i == *(i - 1)) &#43;&#43;i;
+            for(auto j = i &#43; 1; j &lt; end - 2; &#43;&#43;j)
+            {
+                while(j != i &#43; 1 &amp;&amp; j &lt; end - 2 &amp;&amp; *j == *(j - 1)) &#43;&#43;j;
+                auto k = j &#43; 1, l = end - 1;
+                while(k &lt; l)
+                {
+                    if(*i &#43; *j &#43; *k &#43; *l == target)
+                    {
+                        ret.push_back({*i, *j, *k, *l});
+                        &#43;&#43;k,--l;
+                        while(k &lt; l &amp;&amp; *k == *(k - 1)) &#43;&#43;k;
+                        while(k &lt; l &amp;&amp; *l == *(l &#43; 1)) --l;
+                    }
+                    else if(*i &#43; *j &#43; *k &#43; *l &lt; target)
+                    {
+                        &#43;&#43;k;
+                        while(k &lt; l &amp;&amp; *k == *(k - 1)) &#43;&#43;k;
+                    }
+                    else
+                    {
+                        --l;
+                        while(k &lt; l &amp;&amp; *l == *(l &#43; 1)) --l;
+                    }
+                }
 
-int find_Kth_InSortedArrays(vector&lt;int&gt;::const_iterator pLeft, vector&lt;int&gt;::const_iterator pRight, int lLen, int rLen, int k)
-{
-    if(k &lt; 1 || k &gt; lLen &#43; rLen)
-        return -1;
-    if(lLen &gt; rLen)
-        return find_Kth_InSortedArrays(pRight, pLeft, rLen, lLen, k);
-    if(0 == lLen)
-        return *(pRight &#43; k - 1);
-    if(1 == k)
-        return std::min(*pLeft, *pRight);
-    int lMid = std::min(k &gt;&gt; 1, lLen);
-    int rMid = k - lMid;
-    if(*(pLeft &#43; lMid - 1) == *(pRight &#43; rMid - 1))
-        return *(pLeft &#43; lMid - 1);
-    else if(*(pLeft &#43; lMid - 1) &lt; *(pRight &#43; rMid - 1))
-        return find_Kth_InSortedArrays(pLeft &#43; lMid, pRight, lLen - lMid, rLen, k - lMid);
-    else 
-        return find_Kth_InSortedArrays(pLeft, pRight &#43; rMid, lLen, rLen - rMid, k - rMid);
-}</pre>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</figure>
-
-<h4 id="顺便">顺便</h4>
-
-<p>查资料时，看到这么一段话</p>
-
-<blockquote>
-<p>然《编程珠玑》的作者Jon Bentley曾在贝尔实验室做过一个实验，即给一些专业的程序员几个小时的时间，用任何一种语言编写二分查找程序（写出高级伪代码也可以），结果参与编写的一百多人中：90%的程序员写的程序中有bug（我并不认为没有bug的代码就正确）。
-也就是说：在足够的时间内，只有大约10%的专业程序员可以把这个小程序写对。但写不对这个小程序的还不止这些人：而且高德纳在《计算机程序设计的艺术 第3卷 排序和查找》第6.2.1节的“历史与参考文献”部分指出，虽然早在1946年就有人将二分查找的方法公诸于世，但直到1962年才有人写出没有bug的二分查找程序。
-你能正确无误的写出二分查找代码么？不妨一试，关闭所有网页，窗口，打开记事本，或者编辑器，或者直接在本文评论下，不参考上面我写的或其他任何人的程序，给自己十分钟到N个小时不等的时间，立即编写一个二分查找程序。</p>
-</blockquote>
-
-<p>Excuse Me？ 90%程序员写不出无BUG的二分查找程序？我也试了试，照着10分钟来的，没测试，不知道对否，也不知是否属于90%</p>
-
-
-  
-    
-  
-  
-  
-  
-
-
-<figure class="highlight ">
-  <figcaption>
-    
-      <span>binarySearch.cpp</span>
-    
-  </figcaption>
-  <table>
-    <tbody>
-      <tr>
-        <td class="gutter">
-          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre>
-        </td>
-        <td class="code">
-          <pre class=" code-highlight">
-//找到返回数组中下标，找不到则返回-1
-int binarySearch(const vector&lt;int&gt;&amp; nums, int start, int end/*real end idx &#39;s next*/, int target)
-{
-    if (start &gt;= end)
-        return -1;
-    int mid = start &#43; (end - start - 1) / 2;			/*real mid idx*/
-    if (nums[mid] == target)
-        return mid;
-    else if (target &lt; nums[mid])
-        return binarySearch(nums, start, mid, target);
-    else
-        return binarySearch(nums, mid &#43; 1, end, target);
-}
-int targetSearch(const vector&lt;int&gt;&amp; nums, int target) {
-    return binarySearch(nums, 0, nums.size(), target);
-}</pre>
+            }
+        }
+        return ret;
+    }</pre>
         </td>
       </tr>
     </tbody>
@@ -488,8 +367,6 @@ int targetSearch(const vector&lt;int&gt;&amp; nums, int target) {
                     
   <a class="tag tag--primary tag--small" href="http://jasondong.net//tags/leetcode/">LeetCode</a>
 
-  <a class="tag tag--primary tag--small" href="http://jasondong.net//tags/binary-search/">Binary Search</a>
-
                   </div>
                 
               
@@ -500,7 +377,7 @@ int targetSearch(const vector&lt;int&gt;&amp; nums, int target) {
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/09/leetcode-005-longest-palindromic-substring%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" data-tooltip="LeetCode-005-Longest Palindromic Substring解题报告">
+            <a class="post-action-btn btn btn--disabled">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
@@ -508,7 +385,7 @@ int targetSearch(const vector&lt;int&gt;&amp; nums, int target) {
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/08/leetcode-003-longest-substring-without-repeating-characters%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" data-tooltip="LeetCode-003-Longest Substring Without Repeating Characters解题报告">
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/09/leetcode-015-3sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" data-tooltip="LeetCode-015-3Sum解题报告">
           
             <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
             <i class="fa fa-angle-right"></i>
@@ -525,17 +402,17 @@ int targetSearch(const vector&lt;int&gt;&amp; nums, int target) {
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-004-median-of-two-sorted-arrays%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-018-4sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
           <i class="fa fa-google-plus"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-004-median-of-two-sorted-arrays%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-018-4sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
           <i class="fa fa-facebook-official"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-004-median-of-two-sorted-arrays%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-018-4sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
           <i class="fa fa-twitter"></i>
         </a>
       </li>
@@ -583,7 +460,7 @@ int targetSearch(const vector&lt;int&gt;&amp; nums, int target) {
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/09/leetcode-005-longest-palindromic-substring%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" data-tooltip="LeetCode-005-Longest Palindromic Substring解题报告">
+            <a class="post-action-btn btn btn--disabled">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
@@ -591,7 +468,7 @@ int targetSearch(const vector&lt;int&gt;&amp; nums, int target) {
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/08/leetcode-003-longest-substring-without-repeating-characters%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" data-tooltip="LeetCode-003-Longest Substring Without Repeating Characters解题报告">
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/09/leetcode-015-3sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" data-tooltip="LeetCode-015-3Sum解题报告">
           
             <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
             <i class="fa fa-angle-right"></i>
@@ -608,17 +485,17 @@ int targetSearch(const vector&lt;int&gt;&amp; nums, int target) {
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-004-median-of-two-sorted-arrays%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-018-4sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
           <i class="fa fa-google-plus"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-004-median-of-two-sorted-arrays%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-018-4sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
           <i class="fa fa-facebook-official"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-004-median-of-two-sorted-arrays%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-018-4sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
           <i class="fa fa-twitter"></i>
         </a>
       </li>
@@ -645,17 +522,17 @@ int targetSearch(const vector&lt;int&gt;&amp; nums, int target) {
       <div id="share-options-bar" class="share-options-bar" data-behavior="2">
   <ul class="share-options">
     <li class="share-option">
-      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-004-median-of-two-sorted-arrays%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-018-4sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
         <i class="fa fa-google-plus"></i><span>分享到 Google&#43;</span>
       </a>
     </li>
     <li class="share-option">
-      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-004-median-of-two-sorted-arrays%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-018-4sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
         <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
       </a>
     </li>
     <li class="share-option">
-      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-004-median-of-two-sorted-arrays%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f09%2fleetcode-018-4sum%25E8%25A7%25A3%25E9%25A2%2598%25E6%258A%25A5%25E5%2591%258A%2f">
         <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
       </a>
     </li>
