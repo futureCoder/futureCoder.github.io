@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>LeetCode-018-4Sum解题报告</title>
+      <link>http://jasondong.net/2017/09/leetcode-018-4sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</link>
+      <pubDate>Wed, 27 Sep 2017 10:19:38 +0800</pubDate>
+      
+      <guid>http://jasondong.net/2017/09/leetcode-018-4sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</guid>
+      <description>题目描述 Given an array of integers that is already sorted in ascending order, find two numbers such that they add up to a specific target number. The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based. You may assume</description>
+    </item>
+    
+    <item>
       <title>LeetCode-015-3Sum解题报告</title>
       <link>http://jasondong.net/2017/09/leetcode-015-3sum%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/</link>
       <pubDate>Mon, 18 Sep 2017 13:35:57 +0800</pubDate>
