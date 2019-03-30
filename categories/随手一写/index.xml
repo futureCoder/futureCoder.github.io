@@ -6,18 +6,27 @@
     <description>Recent content in 随手一写 on JasonDong&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 09 Aug 2017 23:04:39 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jan 2018 16:15:48 +0800</lastBuildDate>
     
 	<atom:link href="http://jasondong.net/categories/%E9%9A%8F%E6%89%8B%E4%B8%80%E5%86%99/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>开篇</title>
-      <link>http://jasondong.net/2017/08/%E5%BC%80%E7%AF%87/</link>
-      <pubDate>Wed, 09 Aug 2017 23:04:39 +0800</pubDate>
+      <title>Unix网络编程卷1-环境搭建</title>
+      <link>http://jasondong.net/2018/01/unix%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B71-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Sat, 06 Jan 2018 16:15:48 +0800</pubDate>
       
-      <guid>http://jasondong.net/2017/08/%E5%BC%80%E7%AF%87/</guid>
-      <description>为什么写博客 作为中学时期，一个作文分数常年不足20分（60满分）的选手，写个博客其实对我来说就好像让张飞绣花一样难受。 但是还是下定决心要搞一</description>
+      <guid>http://jasondong.net/2018/01/unix%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B71-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>chomod u+x configure ./configure cd lib make cd ../libfree make cd ../libgai make 若出现如下错误: gcc -I../lib -g -O2 -D_REENTRANT -Wall -c -o inet_ntop.o inet_ntop.c inet_ntop.c: In function ‘inet_ntop’: inet_ntop.c:60:9: error: argument ‘size’ doesn’t match prototype size_t size; ^ In file included</description>
+    </item>
+    
+    <item>
+      <title>Linux系统下常用软件及配置</title>
+      <link>http://jasondong.net/2017/12/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%8F%8A%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Tue, 26 Dec 2017 23:26:51 +0800</pubDate>
+      
+      <guid>http://jasondong.net/2017/12/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%8F%8A%E9%85%8D%E7%BD%AE/</guid>
+      <description>终极的 Shell 配置 &amp;ndash; Oh My Zsh 首先安装zsh： 安装zsh sudo apt-get install zsh 检查zsh的版本，应高于4.3.9 zsh --version 将zsh作为默认shell chsh -s $(which zsh) 注销重新登陆 安</description>
     </item>
     
   </channel>
