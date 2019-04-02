@@ -1,5 +1,9 @@
 
 
+  
+    
+  
+
 
   
 
@@ -17,25 +21,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.53">
     <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
-    <title>分类</title>
+    <title>gh0st源码分析-2</title>
     <meta name="author" content="董子雄">
     <meta name="keywords" content="">
 
     <link rel="icon" href="http://jasondong.net/favicon.png">
     
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="http://jasondong.net/categories/%E5%88%86%E7%B1%BB/index.xml">
-    
 
     
-    <meta name="description" content="JasonDong&#39;s Blog">
-    <meta property="og:description" content="JasonDong&#39;s Blog">
+    <meta name="description" content="Server端收发包逻辑: 在上文可知, 客户端数据全部封装在一个结构体ClientContext中, 这个结构大概长这个样子: struct ClientContext { SOCKET m_Socket; // 客户端">
+    <meta property="og:description" content="Server端收发包逻辑: 在上文可知, 客户端数据全部封装在一个结构体ClientContext中, 这个结构大概长这个样子: struct ClientContext { SOCKET m_Socket; // 客户端">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="分类">
-    <meta property="og:url" content="/categories/%E5%88%86%E7%B1%BB/">
+    <meta property="og:title" content="gh0st源码分析-2">
+    <meta property="og:url" content="/2019/03/gh0st%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-2/">
     <meta property="og:site_name" content="JasonDong&#39;s BLOG">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="JasonDong&#39;s BLOG">
-    <meta name="twitter:description" content="JasonDong&#39;s Blog">
+    <meta name="twitter:description" content="Server端收发包逻辑: 在上文可知, 客户端数据全部封装在一个结构体ClientContext中, 这个结构大概长这个样子: struct ClientContext { SOCKET m_Socket; // 客户端">
     
     
 
@@ -216,39 +218,21 @@
 </nav>
 
       
-        
 
-      
       <div id="main" data-behavior="2"
         class="
                hasCoverMetaIn
                ">
-        
-          <section class="postShorten-group main-content-wrap">
-            
-            
-              
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
   
-    
-      
-        
-      
-    
+    <h1 class="post-title" itemprop="headline">
+      gh0st源码分析-2
+    </h1>
   
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="http://jasondong.net/2019/03/gh0st%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-1/">
-          gh0st源码分析-1
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
+  <div class="postShorten-meta post-meta">
   
     <time itemprop="datePublished" datetime="2019-03-30T21:04:41&#43;08:00">
       
@@ -275,86 +259,157 @@
 
 </div>
 
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        Server端结构: CIniFile读取配置文件, CGh0stApp在其重载的InitInstance()中, 调用主窗口CMainFrame
-        <br>
-        <a href="http://jasondong.net/2019/03/gh0st%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-1/" class="postShorten-excerpt_link link">阅读全文</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>Server端收发包逻辑:
+在上文可知, 客户端数据全部封装在一个结构体ClientContext中, 这个结构大概长这个样子:</p>
+
+<pre><code>struct ClientContext
+{
+    SOCKET              m_Socket;               // 客户端socket句柄
+    CBuffer             m_WriteBuffer;          // 要发送的数据缓冲, 在OnClientWriting中取出到m_wsaOutBuffer, 调用WSASend时候被使用
+    CBuffer             m_CompressionBuffer;    // 接收到的压缩的数据
+    CBuffer             m_DeCompressionBuffer;  // 解压后的数据
+    CBuffer             m_ResendWriteBuffer;    // 上次发送的数据包，接收失败时重发时用
+    int                 m_Dialog[2];            // 放对话框列表用，第一个int是类型，第二个是CDialog的地址
+    int                 m_nTransferProgress;
+
+    WSABUF              m_wsaInBuffer;
+    BYTE                m_byInBuffer[8192];
+
+    WSABUF              m_wsaOutBuffer;
+    HANDLE              m_hWriteComplete;
+
+    LONG                m_nMsgIn;
+    LONG                m_nMsgOut;  
+
+    BOOL                m_bIsMainSocket; // 是不是主socket
+
+    ClientContext*      m_pWriteContext;
+    ClientContext*      m_pReadContext;
+};
+</code></pre>
+
+<p>简单看一下CBuffer封装的操作:</p>
+
+<pre><code>class CBuffer  
+{
+public:
+    void ClearBuffer();     //
+
+    UINT Delete(UINT nSize);
+    UINT Read(PBYTE pData, UINT nSize);     //从Buffer头部开始读nSize个字节至pData中, 然后在Buffer中删除读出的数据(通过MemMove把basePtr + nSize后的所有数据拷到basePtr实现...)
+    BOOL Write(PBYTE pData, UINT nSize);    //在Buffer尾部追加pData
+    BOOL Write(CString&amp; strData);
+    UINT GetBufferLen() { return null == m_pBase ? 0 :  m_pPtr - m_pBase; }     //实际数据字节数, 总内存的大小是GetMemSize()
+    int Scan(PBYTE pScan,UINT nPos);
+    BOOL Insert(PBYTE pData, UINT nSize);   //在Buffer头部插入pData
+    BOOL Insert(CString&amp; strData);
+
+    void Copy(CBuffer&amp; buffer); 
+
+    PBYTE GetBuffer(UINT nPos=0);
+
+    CBuffer();
+    virtual ~CBuffer();
+
+    void FileWrite(const CString&amp; strFileName);
+protected:
+    UINT ReAllocateBuffer(UINT nRequestedSize); //对nRequestedSize按1024对齐, VirtualAlloc新内存, VirtualFree原内存(nRequestedSize小于原Buffer内存大小则不执行)  --- 仅用于对Buffer扩容
+    UINT DeAllocateBuffer(UINT nRequestedSize); //对Buffer扩容, 但申请空间不足以容纳原Buffer数据或按1024对齐后比原Buffer占用内存小则不执行
+    UINT GetMemSize() { return m_nSize; }       //分配内存的大小, 数据实际占用的大小是GetBufferLen()
+
+protected:
+    PBYTE   m_pBase;    //Buffer基址
+    PBYTE   m_pPtr;     //Buffer数据尾地址
+    UINT    m_nSize;    //Buffer总内存
+}
+</code></pre>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2019/03/gh0st%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-1/" data-tooltip="gh0st源码分析-1">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2019%2f03%2fgh0st%25E6%25BA%2590%25E7%25A0%2581%25E5%2588%2586%25E6%259E%2590-2%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2019%2f03%2fgh0st%25E6%25BA%2590%25E7%25A0%2581%25E5%2588%2586%25E6%259E%2590-2%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2019%2f03%2fgh0st%25E6%25BA%2590%25E7%25A0%2581%25E5%2588%2586%25E6%259E%2590-2%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#livere_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
 
             
               
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="http://jasondong.net/2019/03/gh0st%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-2/">
-          gh0st源码分析-2
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
-  
-    <time itemprop="datePublished" datetime="2019-03-30T21:04:41&#43;08:00">
-      
-  
-  
-  
-  
-    三月30日 · 2019年 
-  
-
-    </time>
-  
-  
-  
-  
-    <span>发布在</span>
-    
-      <a class="category-link" href="http://jasondong.net/categories/%e5%88%86%e7%b1%bb">分类</a>, 
-    
-      <a class="category-link" href="http://jasondong.net/categories/%e6%8a%80%e6%9c%af%e6%96%87%e7%ab%a0">技术文章</a>
-    
-  
-
-
+              <div id="lv-container" data-id="city" data-uid='MTAyMC8zMDI3OC82ODMz'>
+                <div id="livere_thread">
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
 </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        Server端收发包逻辑: 在上文可知, 客户端数据全部封装在一个结构体ClientContext中, 这个结构大概长这个样子: struct ClientContext { SOCKET m_Socket; // 客户端
-        <br>
-        <a href="http://jasondong.net/2019/03/gh0st%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-2/" class="postShorten-excerpt_link link">阅读全文</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
+              </div>
+              
             
-            
-
-          </section>
-        
+          </div>
+        </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
     &copy; 2019 董子雄. All Rights Reserved
@@ -362,6 +417,92 @@
 </footer>
 
       </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2019/03/gh0st%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-1/" data-tooltip="gh0st源码分析-1">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2019%2f03%2fgh0st%25E6%25BA%2590%25E7%25A0%2581%25E5%2588%2586%25E6%259E%2590-2%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2019%2f03%2fgh0st%25E6%25BA%2590%25E7%25A0%2581%25E5%2588%2586%25E6%259E%2590-2%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2019%2f03%2fgh0st%25E6%25BA%2590%25E7%25A0%2581%25E5%2588%2586%25E6%259E%2590-2%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#livere_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="2">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2019%2f03%2fgh0st%25E6%25BA%2590%25E7%25A0%2581%25E5%2588%2586%25E6%259E%2590-2%2f">
+        <i class="fa fa-google-plus"></i><span>分享到 Google&#43;</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2019%2f03%2fgh0st%25E6%25BA%2590%25E7%25A0%2581%25E5%2588%2586%25E6%259E%2590-2%2f">
+        <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2019%2f03%2fgh0st%25E6%25BA%2590%25E7%25A0%2581%25E5%2588%2586%25E6%259E%2590-2%2f">
+        <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
     </div>
     
     <div id="about">
@@ -509,6 +650,22 @@ $(document).ready(function() {
   });
 });
 </script>
+
+  
+    
+      <script type="text/javascript">
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+            if (typeof LivereTower === 'function') { return; }
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+  
 
 
 
