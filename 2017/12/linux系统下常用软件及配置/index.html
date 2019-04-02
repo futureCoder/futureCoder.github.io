@@ -1,0 +1,818 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+
+  
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.54.0">
+    <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
+    <title>Linux系统下常用软件及配置</title>
+    <meta name="author" content="董子雄">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="http://jasondong.net/favicon.png">
+    
+
+    
+    <meta name="description" content="终极的 Shell 配置 &ndash; Oh My Zsh 首先安装zsh： 安装zsh sudo apt-get install zsh 检查zsh的版本，应高于4.3.9 zsh --version 将zsh作为默认shell chsh -s $(which zsh) 注销重新登陆 安">
+    <meta property="og:description" content="终极的 Shell 配置 &ndash; Oh My Zsh 首先安装zsh： 安装zsh sudo apt-get install zsh 检查zsh的版本，应高于4.3.9 zsh --version 将zsh作为默认shell chsh -s $(which zsh) 注销重新登陆 安">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Linux系统下常用软件及配置">
+    <meta property="og:url" content="/2017/12/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%8F%8A%E9%85%8D%E7%BD%AE/">
+    <meta property="og:site_name" content="JasonDong&#39;s BLOG">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JasonDong&#39;s BLOG">
+    <meta name="twitter:description" content="终极的 Shell 配置 &ndash; Oh My Zsh 首先安装zsh： 安装zsh sudo apt-get install zsh 检查zsh的版本，应高于4.3.9 zsh --version 将zsh作为默认shell chsh -s $(which zsh) 注销重新登陆 安">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//otnjj3xqi.bkt.clouddn.com/image/blog/avatarIcon/Bannie.jpg">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" />
+    
+    
+    <link rel="stylesheet" href="http://jasondong.net/css/style-u6mk0ojoywresbx8iepslrmmhl4stuhrsxuwhkpwrkrx7mryjcaimasnk4pi.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="http://jasondong.net/">JasonDong&#39;s BLOG</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="http://jasondong.net/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//otnjj3xqi.bkt.clouddn.com/image/blog/avatarIcon/Bannie.jpg" alt="作者的图片" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="http://jasondong.net/#about">
+          <img class="sidebar-profile-picture" src="//otnjj3xqi.bkt.clouddn.com/image/blog/avatarIcon/Bannie.jpg" alt="作者的图片" />
+        </a>
+        <h4 class="sidebar-profile-name">董子雄</h4>
+        
+          <h5 class="sidebar-profile-bio"><strong>努力工作 认真生活</strong></h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">首页</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">归档</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">分类</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">标签</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories/%E6%80%9D%E8%80%83%E6%84%9F%E6%82%9F">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">思考感悟</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">技术文章</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories/%E7%AE%97%E6%B3%95">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">算法</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">读书笔记</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/categories/%E9%9A%8F%E6%89%8B%E4%B8%80%E5%86%99">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">随手一写</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://jasondong.net/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">关于</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+    </ul>
+    <ul class="sidebar-buttons">
+      
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Linux系统下常用软件及配置
+    </h1>
+  
+  <div class="postShorten-meta post-meta">
+  
+    <time itemprop="datePublished" datetime="2017-12-26T23:26:51&#43;08:00">
+      
+  
+  
+  
+  
+    十二月26日 · 2017年 
+  
+
+    </time>
+  
+  
+  
+  
+    <span>发布在</span>
+    
+      <a class="category-link" href="http://jasondong.net/categories/%e5%88%86%e7%b1%bb">分类</a>, 
+    
+      <a class="category-link" href="http://jasondong.net/categories/%e9%9a%8f%e6%89%8b%e4%b8%80%e5%86%99">随手一写</a>
+    
+  
+
+
+</div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+<h1 id="终极的-shell-配置-oh-my-zsh">终极的 Shell 配置 &ndash; Oh My Zsh</h1>
+
+<h2 id="首先安装zsh">首先安装zsh：</h2>
+
+<ol>
+<li>安装zsh<br />
+<code>sudo apt-get install zsh</code></li>
+<li>检查zsh的版本，应高于4.3.9<br />
+<code>zsh --version</code></li>
+<li>将zsh作为默认shell<br />
+<code>chsh -s $(which zsh)</code></li>
+<li>注销重新登陆</li>
+</ol>
+
+<h2 id="安装curl或wget">安装curl或wget</h2>
+
+<pre><code class="language-sudo">## 安装Git
+```sudo apt-get install git```
+## 使用curl或者wget安装Oh My Zsh
+```sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;```
+```sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;```
+安装完成，可选择主题
+</code></pre>
+
+<p>ZSH_THEME=&ldquo;agnoster&rdquo; # (this is one of the fancy ones)</p>
+
+<h1 id="see-https-github-com-robbyrussell-oh-my-zsh-wiki-themes-agnoster">see <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Themes#agnoster">https://github.com/robbyrussell/oh-my-zsh/wiki/Themes#agnoster</a></h1>
+
+<pre><code>用这个主题需要安装字体 [Powerline fonts](https://github.com/powerline/fonts)  
+```git clone https://github.com/powerline/fonts.git --depth=1```
+
+## 准备源码阅读环境
+### Vim基本设置
+</code></pre>
+
+<p>$ cat ~/.vimrc
+set encoding=UTF-8
+set langmenu=zh_CN.UTF-8
+language message zh_CN.UTF-8
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set fileencoding=utf-8
+sy on
+set ai
+set nu
+set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set ic &ldquo;搜索时忽略大小写，以便在某些“骆驼”变量名风格的源码中查找</p>
+
+<pre><code>## 在Vim中使用Cscope
+1. 安装Cscope
+sudo apt-get install cscope
+1. 确认Vim支持Cscope
+vim --version | grep cscope
+3. 给源代码建立索引
+cscope-Rbq
+其中，ctags 递归的在每个目录下生成 tags 文件，供 vim 读取;  
+cscope 生成 cscope.out  
+cscope.out: cscope reference data version 15 with inverted index  
+将以下内容添加到 ~/.vimrc 中，以自动加载 cscope.out.  
+</code></pre>
+
+<p>&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;
+&ldquo; cscope setting</p>
+
+<p>if has(&ldquo;cscope&rdquo;)
+   set csprg=/usr/bin/cscope              &ldquo;指定用来执行 cscope 的命令
+   set csto=1                             &ldquo;先搜索tags标签文件，再搜索cscope数据库
+   set cst                                &ldquo;使用|:cstag|(:cs find g)，而不是缺省的:tag
+   set nocsverb                           &ldquo;不显示添加数据库是否成功
+   &ldquo; add any database in current directory
+   if filereadable(ncscope.out&rdquo;)
+      cs add cscope.out                   &ldquo;添加cscope数据库
+   endif
+   set csverb                             &ldquo;显示添加成功与否
+endif</p>
+
+<p>nmap <a href="mailto:C-@">C-@</a>s :cs find s <C-R>=expand(&rdquo;<cword>&rdquo;)<CR><CR><br />
+nmap <a href="mailto:C-@">C-@</a>g :cs find g <C-R>=expand(&rdquo;<cword>&rdquo;)<CR><CR><br />
+nmap <a href="mailto:C-@">C-@</a>c :cs find c <C-R>=expand(&rdquo;<cword>&rdquo;)<CR><CR><br />
+nmap <a href="mailto:C-@">C-@</a>t :cs find t <C-R>=expand(&rdquo;<cword>&rdquo;)<CR><CR><br />
+nmap <a href="mailto:C-@">C-@</a>e :cs find e <C-R>=expand(&rdquo;<cword>&rdquo;)<CR><CR><br />
+nmap <a href="mailto:C-@">C-@</a>f :cs find f <C-R>=expand(&rdquo;<cfile>&rdquo;)<CR><CR><br />
+nmap <a href="mailto:C-@">C-@</a>i :cs find i <C-R>=expand(&rdquo;<cfile>&rdquo;)<CR><CR><br />
+nmap <a href="mailto:C-@">C-@</a>d :cs find d <C-R>=expand(&rdquo;<cword>&rdquo;)<CR><CR><br />
+&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;</p>
+
+<pre><code>根据上面的 .vimrc，使用简单的组合键和字母即可使用 cscope 的查找功能。  
+例如，&lt;C-@&gt;g 先按 ctrl+@，再按 g，即可查看当前光标所在符号的定义。  
+:cs help  
+s: 查找 C 语言符号，即查找函数名、宏、枚举值等出现的地方  
+g: 查找函数、宏、枚举等定义的位置，类似 ctags 所提供的功能  
+d: 查找本函数调用的函数  
+c: 查找调用本函数的函数  
+t: 查找指定的字符串  
+e: 查找 egrep 模式，相当于 egrep 功能，但查找速度快多了  
+f: 查找并打开文件，类似 vim 的 find 功能  
+i: 查找包含本文件的文件  
+## 在 vim 中使用 ctags
+在源代码根目录下执行 ctags -R 命令用来为程序源代码生成标签文件，-R 选项表示递归操作，同时为子目录也生成标签文件。vim 利用生成的标签文件，可以进行相应检索、并在不同的文件中的C语言元素之间来回切换。  
+需要在 tags 文件所在的目录下运行 vim。否则，要用 :set tags=xxx 指定 tags 文件的路径。  
+使用 tag 命令时，可以使用 TAB 键进行匹配查找，继续按 TAB 键向下切换。  
+跳到函数或数据结构xxx处  
+:tag xxx  
+跳到第一个定义处，优先跳转到当前文件  
+:tnext  
+跳到第一个  
+:tfirst  
+跳到前 count 个  
+:[count]tprevious  
+跳到后 count 个  
+:[count]tnext  
+跳到最后一个  
+:tlast  
+在所有 tagname 中选择  
+:tselect tagname  
+跳到包含 block 的标识符  
+:tag /block   
+(这里 '/' 就是告诉 vim，'block' 是一个语句块标签。)  
+
+跳转到光标所在函数标识符的定义处  
+Ctrl+]  
+使用&quot;ctrl+t&quot;退回上层  
+Ctrl+t  
+在以 write_ 开头的标识符中选择  
+:tselect /^write_  
+这里，'^'表示开头，同理，'$'表示末尾。  
+在函数中移动光标的快捷键:  
+
+[{ 转到上一个位于第一列的&quot;{&quot;  
+}] 转到下一个位于第一列的&quot;{&quot;  
+{ 转到上一个空行  
+} 转到下一个空行  
+gd 转到当前光标所指的局部变量的定义  
+\* 转到当前光标所指的单词下一次出现的地方  
+\# 转到当前光标所指的单词上一次出现的地方  
+
+## 使用 taglist 显示 symbol 窗口
+taglist 插件可以像 Source Insight 那样将当前文件中的宏、全局变量、函数等 tag 显示在 Symbol 窗口，用鼠标点上述 tag，就跳到该 tag 定义的位置；可以按字母序、该tag所属的类或scope，以及该 tag 在文件中出现的位置进行排序；如果切换到另外一个文件，Symbol 窗口更新显示这个文件中的 tag。taglist 依赖于 ctags。  
+打开 vim 的文件类型自动检测功能；  
+系统中装了 Exuberant ctags 工具，并且 taglist 能够找到此工具（因为 taglist 需要调用它来生成 tag 文件）；  
+vim 支持 system() 调用；  
+在 ~/.vimrc 中加入  
+</code></pre>
+
+<p>&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;
+&ldquo; ctags setting
+set tags=./tags,./../tags,./*/tags;</p>
+
+<p>&rdquo; Tag list (ctags)</p>
+
+<p>filetype on                            &ldquo;文件类型自动检测</p>
+
+<p>if MySys() == &ldquo;windows&rdquo;                &ldquo;设定windows系统中ctags程序的位置
+   let Tlist_Ctags_Cmd = &lsquo;ctags&rsquo;
+elseif MySys() == &ldquo;linux&rdquo;              &ldquo;设定linux系统中ctags程序的位置
+   let Tlist_Ctags_Cmd = &lsquo;/usr/bin/ctags&rsquo;
+endif</p>
+
+<p>let Tlist_Show_One_File = 1            &ldquo;不同时显示多个文件的tag，只显示当前文件的
+let Tlist_Exit_OnlyWindow = 1          &ldquo;如果taglist窗口是最后一个窗口，则退出vim
+let Tlist_Use_Right_Window = 1         &ldquo;在右侧窗口中显示taglist窗口</p>
+
+<p>map <silent> <F8> :TlistToggle<cr>     &ldquo;在映射F8键打开tags窗口
+&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&ldquo;&rdquo;&rdquo;
+```</p>
+
+<h1 id="安装插件管理器vundle">安装插件管理器Vundle</h1>
+
+<p><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</code></p>
+
+<h2 id="安装ycm-youcompleteme">安装YCM(YouCompleteMe)</h2>
+
+<p>在Vundle中加入<br />
+Plugin &lsquo;Valloric/YouCompleteMe&rsquo;</p>
+
+<h2 id="引号-括号匹配">引号/括号匹配</h2>
+
+<p>Plugin &lsquo;Raimondi/delimitMate&rsquo;</p>
+
+<h2 id="代码格式化插件-formatter">代码格式化插件 Formatter</h2>
+
+<p>Plugin &lsquo;Chiel92/vim-autoformat&rsquo;
+let g:formatdef_harttle = &lsquo;&ldquo;astyle &ndash;style=attach &ndash;pad-oper&rdquo;&rsquo;
+let g:formatters_cpp = [&lsquo;harttle&rsquo;]
+let g:formatters_java = [&lsquo;harttle&rsquo;]</p>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2018/01/unix%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B71-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-tooltip="Unix网络编程卷1-环境搭建">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f12%2flinux%25E7%25B3%25BB%25E7%25BB%259F%25E4%25B8%258B%25E5%25B8%25B8%25E7%2594%25A8%25E8%25BD%25AF%25E4%25BB%25B6%25E5%258F%258A%25E9%2585%258D%25E7%25BD%25AE%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f12%2flinux%25E7%25B3%25BB%25E7%25BB%259F%25E4%25B8%258B%25E5%25B8%25B8%25E7%2594%25A8%25E8%25BD%25AF%25E4%25BB%25B6%25E5%258F%258A%25E9%2585%258D%25E7%25BD%25AE%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f12%2flinux%25E7%25B3%25BB%25E7%25BB%259F%25E4%25B8%258B%25E5%25B8%25B8%25E7%2594%25A8%25E8%25BD%25AF%25E4%25BB%25B6%25E5%258F%258A%25E9%2585%258D%25E7%25BD%25AE%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#livere_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+            
+              
+              <div id="lv-container" data-id="city" data-uid='MTAyMC8zMDI3OC82ODMz'>
+                <div id="livere_thread">
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+              </div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2019 董子雄. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2018/01/unix%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B71-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-tooltip="Unix网络编程卷1-环境搭建">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f12%2flinux%25E7%25B3%25BB%25E7%25BB%259F%25E4%25B8%258B%25E5%25B8%25B8%25E7%2594%25A8%25E8%25BD%25AF%25E4%25BB%25B6%25E5%258F%258A%25E9%2585%258D%25E7%25BD%25AE%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f12%2flinux%25E7%25B3%25BB%25E7%25BB%259F%25E4%25B8%258B%25E5%25B8%25B8%25E7%2594%25A8%25E8%25BD%25AF%25E4%25BB%25B6%25E5%258F%258A%25E9%2585%258D%25E7%25BD%25AE%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f12%2flinux%25E7%25B3%25BB%25E7%25BB%259F%25E4%25B8%258B%25E5%25B8%25B8%25E7%2594%25A8%25E8%25BD%25AF%25E4%25BB%25B6%25E5%258F%258A%25E9%2585%258D%25E7%25BD%25AE%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#livere_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="2">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2017%2f12%2flinux%25E7%25B3%25BB%25E7%25BB%259F%25E4%25B8%258B%25E5%25B8%25B8%25E7%2594%25A8%25E8%25BD%25AF%25E4%25BB%25B6%25E5%258F%258A%25E9%2585%258D%25E7%25BD%25AE%2f">
+        <i class="fa fa-google-plus"></i><span>分享到 Google&#43;</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2017%2f12%2flinux%25E7%25B3%25BB%25E7%25BB%259F%25E4%25B8%258B%25E5%25B8%25B8%25E7%2594%25A8%25E8%25BD%25AF%25E4%25BB%25B6%25E5%258F%258A%25E9%2585%258D%25E7%25BD%25AE%2f">
+        <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2017%2f12%2flinux%25E7%25B3%25BB%25E7%25BB%259F%25E4%25B8%258B%25E5%25B8%25B8%25E7%2594%25A8%25E8%25BD%25AF%25E4%25BB%25B6%25E5%258F%258A%25E9%2585%258D%25E7%25BD%25AE%2f">
+        <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//otnjj3xqi.bkt.clouddn.com/image/blog/avatarIcon/Bannie.jpg" alt="作者的图片" />
+    
+    <h4 id="about-card-name">董子雄</h4>
+    
+      <div id="about-card-bio"><strong>努力工作 认真生活</strong></div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        尘世迷途小码农
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        中国·帝都
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="搜索" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center"></div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/2019/03/gh0st%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">
+                <h3 class="media-heading">gh0st源码分析</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Mar 3, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Server端: CIniFile读取配置文件, CGh0stApp在其重载的InitInstance()中, 调用主窗口CMainFrame的A</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/2018/01/unix%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B71-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                <h3 class="media-heading">Unix网络编程卷1-环境搭建</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">chomod u+x configure ./configure cd lib make cd ../libfree make cd ../libgai make 若出现如下错误: gcc -I../lib -g -O2 -D_REENTRANT -Wall -c -o inet_ntop.o inet_ntop.c inet_ntop.c: In function ‘inet_ntop’: inet_ntop.c:60:9: error: argument ‘size’ doesn’t match prototype size_t size; ^ In file included</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/2017/12/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%8F%8A%E9%85%8D%E7%BD%AE/">
+                <h3 class="media-heading">Linux系统下常用软件及配置</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">终极的 Shell 配置 &ndash; Oh My Zsh 首先安装zsh： 安装zsh sudo apt-get install zsh 检查zsh的版本，应高于4.3.9 zsh --version 将zsh作为默认shell chsh -s $(which zsh) 注销重新登陆 安</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="http://jasondong.net/post/">
+                <h3 class="media-heading">Posts</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Mar 3, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero=""
+         data-message-one=""
+         data-message-other="">
+         4 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://jasondong.net/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="//ovg5ihjel.bkt.clouddn.com/code/blog/theme/scriptHtml/jquery.min.js"></script>
+<script src="//ovg5ihjel.bkt.clouddn.com/code/blog/theme/scriptHtml/highlight.min.js"></script>
+<script src="//ovg5ihjel.bkt.clouddn.com/code/blog/theme/scriptHtml/jquery.fancybox.min.js"></script>
+<script src="//ovg5ihjel.bkt.clouddn.com/code/blog/theme/scriptHtml/jquery.fancybox-thumbs.min.js"></script>
+
+
+<script src="http://jasondong.net/js/script-wl33z0n6ocaypepiqrazthtivfrliqijej4rq8ek8gvrv1awftmgjuv8k4zc.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight').each(function(i, block) {
+    var code = "";
+    hljs.highlightAuto(block.innerText).value.split(/\r\n|\r|\n/).forEach(function(line) {
+      code += "<span class=\"line\">" + line + "</span><br>";
+    });
+    if (code.length > 0) {
+      block.innerHTML = code;  
+    }
+  });
+  $('pre > code').each(function(i, block) {
+    $(this).addClass('codeblock');
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+  
+    
+      <script type="text/javascript">
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+            if (typeof LivereTower === 'function') { return; }
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+  
+
+
+
+
+
+    
+  </body>
+</html>
+

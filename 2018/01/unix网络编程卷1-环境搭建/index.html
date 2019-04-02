@@ -1,5 +1,9 @@
 
 
+  
+    
+  
+
 
   
 
@@ -17,25 +21,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.54.0">
     <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
-    <title>随手一写</title>
+    <title>Unix网络编程卷1-环境搭建</title>
     <meta name="author" content="董子雄">
     <meta name="keywords" content="">
 
     <link rel="icon" href="http://jasondong.net/favicon.png">
     
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="http://jasondong.net/categories/%E9%9A%8F%E6%89%8B%E4%B8%80%E5%86%99/index.xml">
-    
 
     
-    <meta name="description" content="JasonDong&#39;s Blog">
-    <meta property="og:description" content="JasonDong&#39;s Blog">
+    <meta name="description" content="chomod u&#43;x configure ./configure cd lib make cd ../libfree make cd ../libgai make 若出现如下错误: gcc -I../lib -g -O2 -D_REENTRANT -Wall -c -o inet_ntop.o inet_ntop.c inet_ntop.c: In function ‘inet_ntop’: inet_ntop.c:60:9: error: argument ‘size’ doesn’t match prototype size_t size; ^ In file included">
+    <meta property="og:description" content="chomod u&#43;x configure ./configure cd lib make cd ../libfree make cd ../libgai make 若出现如下错误: gcc -I../lib -g -O2 -D_REENTRANT -Wall -c -o inet_ntop.o inet_ntop.c inet_ntop.c: In function ‘inet_ntop’: inet_ntop.c:60:9: error: argument ‘size’ doesn’t match prototype size_t size; ^ In file included">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="随手一写">
-    <meta property="og:url" content="/categories/%E9%9A%8F%E6%89%8B%E4%B8%80%E5%86%99/">
+    <meta property="og:title" content="Unix网络编程卷1-环境搭建">
+    <meta property="og:url" content="/2018/01/unix%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B71-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
     <meta property="og:site_name" content="JasonDong&#39;s BLOG">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="JasonDong&#39;s BLOG">
-    <meta name="twitter:description" content="JasonDong&#39;s Blog">
+    <meta name="twitter:description" content="chomod u&#43;x configure ./configure cd lib make cd ../libfree make cd ../libgai make 若出现如下错误: gcc -I../lib -g -O2 -D_REENTRANT -Wall -c -o inet_ntop.o inet_ntop.c inet_ntop.c: In function ‘inet_ntop’: inet_ntop.c:60:9: error: argument ‘size’ doesn’t match prototype size_t size; ^ In file included">
     
     
 
@@ -216,39 +218,21 @@
 </nav>
 
       
-        
 
-      
       <div id="main" data-behavior="2"
         class="
                hasCoverMetaIn
                ">
-        
-          <section class="postShorten-group main-content-wrap">
-            
-            
-              
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
   
-    
-      
-        
-      
-    
+    <h1 class="post-title" itemprop="headline">
+      Unix网络编程卷1-环境搭建
+    </h1>
   
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="http://jasondong.net/2018/01/unix%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B71-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-          Unix网络编程卷1-环境搭建
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
+  <div class="postShorten-meta post-meta">
   
     <time itemprop="datePublished" datetime="2018-01-06T16:15:48&#43;08:00">
       
@@ -275,86 +259,137 @@
 
 </div>
 
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        chomod u+x configure ./configure cd lib make cd ../libfree make cd ../libgai make 若出现如下错误: gcc -I../lib -g -O2 -D_REENTRANT -Wall -c -o inet_ntop.o inet_ntop.c inet_ntop.c: In function ‘inet_ntop’: inet_ntop.c:60:9: error: argument ‘size’ doesn’t match prototype size_t size; ^ In file included
-        <br>
-        <a href="http://jasondong.net/2018/01/unix%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%8D%B71-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="postShorten-excerpt_link link">阅读全文</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <ol>
+<li>chomod u+x configure<br />
+./configure</li>
+<li>cd lib<br />
+make</li>
+<li>cd ../libfree<br />
+make</li>
+<li>cd ../libgai<br />
+make</li>
+</ol>
+
+<p>若出现如下错误:</p>
+
+<pre><code>gcc -I../lib -g -O2 -D_REENTRANT -Wall   -c -o inet_ntop.o inet_ntop.c  
+inet_ntop.c: In function ‘inet_ntop’:  
+inet_ntop.c:60:9: error: argument ‘size’ doesn’t match prototype  
+  size_t size;  
+         ^  
+In file included from inet_ntop.c:27:0:  
+/usr/include/arpa/inet.h:64:20: error: prototype declaration  
+ extern const char *inet_ntop (int __af, const void *__restrict __cp,  
+                    ^  
+make: *** [inet_ntop.o] Error 1  
+</code></pre>
+
+<p>将生成的libnup.a复制到/usr/lib下
+sudo cp libunp.a /usr/lib
+修改lib/unp.h并将其和config.h拷到/usr/include中,为了include方便
+vim lib/unp.h //将#include &ldquo;../config.h&rdquo;改成#include &ldquo;config.h&rdquo;
+sudo cp lib/unp.h /usr/include
+sudo cp config.h /usr/include</p>
+
+<p>编译例子
+cd intro
+gcc daytimetcpcli.c -o cli -lunp</p>
+
+<pre><code> _                       ____                    
+| | __ _ ___  ___  _ __ |  _ \  ___  _ __   __ _ 
+</code></pre>
+
+<p>_  | |/ <em><code>/ __|/ _ \| '_ \| | | |/ _ \| '_ \ / _</code> |
+| |</em>| | (<em>| _</em> \ (<em>) | | | | |</em>| | (<em>) | | | | (</em>| |
+ _<strong>/ _<em>,</em>|</strong>_/_<strong>/|<em>| |</em>|</strong><strong>/ _</strong>/|<em>| |</em>|__, |
+                                               |___/</p>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2019/03/gh0st%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-tooltip="gh0st源码分析">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/12/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%8F%8A%E9%85%8D%E7%BD%AE/" data-tooltip="Linux系统下常用软件及配置">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2018%2f01%2funix%25E7%25BD%2591%25E7%25BB%259C%25E7%25BC%2596%25E7%25A8%258B%25E5%258D%25B71-%25E7%258E%25AF%25E5%25A2%2583%25E6%2590%25AD%25E5%25BB%25BA%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2018%2f01%2funix%25E7%25BD%2591%25E7%25BB%259C%25E7%25BC%2596%25E7%25A8%258B%25E5%258D%25B71-%25E7%258E%25AF%25E5%25A2%2583%25E6%2590%25AD%25E5%25BB%25BA%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2018%2f01%2funix%25E7%25BD%2591%25E7%25BB%259C%25E7%25BC%2596%25E7%25A8%258B%25E5%258D%25B71-%25E7%258E%25AF%25E5%25A2%2583%25E6%2590%25AD%25E5%25BB%25BA%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#livere_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
 
             
               
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="http://jasondong.net/2017/12/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%8F%8A%E9%85%8D%E7%BD%AE/">
-          Linux系统下常用软件及配置
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
-  
-    <time itemprop="datePublished" datetime="2017-12-26T23:26:51&#43;08:00">
-      
-  
-  
-  
-  
-    十二月26日 · 2017年 
-  
-
-    </time>
-  
-  
-  
-  
-    <span>发布在</span>
-    
-      <a class="category-link" href="http://jasondong.net/categories/%e5%88%86%e7%b1%bb">分类</a>, 
-    
-      <a class="category-link" href="http://jasondong.net/categories/%e9%9a%8f%e6%89%8b%e4%b8%80%e5%86%99">随手一写</a>
-    
-  
-
-
+              <div id="lv-container" data-id="city" data-uid='MTAyMC8zMDI3OC82ODMz'>
+                <div id="livere_thread">
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
 </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        终极的 Shell 配置 &ndash; Oh My Zsh 首先安装zsh： 安装zsh sudo apt-get install zsh 检查zsh的版本，应高于4.3.9 zsh &ndash;version 将zsh作为默认shell chsh -s $(which zsh) 注销重新登陆 安
-        <br>
-        <a href="http://jasondong.net/2017/12/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%8F%8A%E9%85%8D%E7%BD%AE/" class="postShorten-excerpt_link link">阅读全文</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
+              </div>
+              
             
-            
-
-          </section>
-        
+          </div>
+        </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
     &copy; 2019 董子雄. All Rights Reserved
@@ -362,6 +397,92 @@
 </footer>
 
       </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2019/03/gh0st%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-tooltip="gh0st源码分析">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://jasondong.net/2017/12/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%8F%8A%E9%85%8D%E7%BD%AE/" data-tooltip="Linux系统下常用软件及配置">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2018%2f01%2funix%25E7%25BD%2591%25E7%25BB%259C%25E7%25BC%2596%25E7%25A8%258B%25E5%258D%25B71-%25E7%258E%25AF%25E5%25A2%2583%25E6%2590%25AD%25E5%25BB%25BA%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2018%2f01%2funix%25E7%25BD%2591%25E7%25BB%259C%25E7%25BC%2596%25E7%25A8%258B%25E5%258D%25B71-%25E7%258E%25AF%25E5%25A2%2583%25E6%2590%25AD%25E5%25BB%25BA%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2018%2f01%2funix%25E7%25BD%2591%25E7%25BB%259C%25E7%25BC%2596%25E7%25A8%258B%25E5%258D%25B71-%25E7%258E%25AF%25E5%25A2%2583%25E6%2590%25AD%25E5%25BB%25BA%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#livere_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="2">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fjasondong.net%2f2018%2f01%2funix%25E7%25BD%2591%25E7%25BB%259C%25E7%25BC%2596%25E7%25A8%258B%25E5%258D%25B71-%25E7%258E%25AF%25E5%25A2%2583%25E6%2590%25AD%25E5%25BB%25BA%2f">
+        <i class="fa fa-google-plus"></i><span>分享到 Google&#43;</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fjasondong.net%2f2018%2f01%2funix%25E7%25BD%2591%25E7%25BB%259C%25E7%25BC%2596%25E7%25A8%258B%25E5%258D%25B71-%25E7%258E%25AF%25E5%25A2%2583%25E6%2590%25AD%25E5%25BB%25BA%2f">
+        <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fjasondong.net%2f2018%2f01%2funix%25E7%25BD%2591%25E7%25BB%259C%25E7%25BC%2596%25E7%25A8%258B%25E5%258D%25B71-%25E7%258E%25AF%25E5%25A2%2583%25E6%2590%25AD%25E5%25BB%25BA%2f">
+        <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
     </div>
     
     <div id="about">
@@ -526,6 +647,22 @@ $(document).ready(function() {
   });
 });
 </script>
+
+  
+    
+      <script type="text/javascript">
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+            if (typeof LivereTower === 'function') { return; }
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+  
 
 
 
